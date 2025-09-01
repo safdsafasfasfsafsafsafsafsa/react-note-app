@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-// 1. 메모 객체의 타입을 정의합니다.
 interface Note {
   id: string;
   title: string;
@@ -8,7 +7,7 @@ interface Note {
 }
 
 export const loadNotesFromLocalStorage = createAsyncThunk<Note[], void>(
-  "notes/loadFromLocalStorage",
+  "notes/loadNotesFromLocalStorage",
   async () => {
     // localStorage에서 'notes' 키의 값을 가져옵니다.
     const savedNotes = localStorage.getItem("notes");
