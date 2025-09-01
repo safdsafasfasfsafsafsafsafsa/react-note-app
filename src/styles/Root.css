@@ -1,15 +1,8 @@
 :root {
-  --main-color: #e1e3e9;
-  --text-color: #262e37;
-  --text-color-lightgray: #353d477e;
-  --text-color-gray: #353d47c2;
   --bg-color: #e1e3e9;
-  --nav-height: 60px;
-}
-
-.centered {
-  display: flex;
-  align-items: center;
-  min-height: 100vh;
-  padding-top: 60px; /* 헤더 높이 */
+  --nav-color: rgb(245, 245, 153);
+  --text-color: #12171d;
+  --text-color-lightgray: #2a3038;
+  --text-color-gray: #4b5055d3;
+  --nav-width: 320px;
 }

@@ -1,6 +1,6 @@
 import React from "react";
-import "../styles/Reset.css";
-import "./Nav.css";
+import NavBtn from "./NavBtn";
+import style from "./Nav.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -12,49 +12,23 @@ export default function Nav() {
   //   const { notes, status } = useSelector((state) => state.auth);
 
   // 일반 리다이렉트
-  const handleNav = (nav) => {
-    navigate(`/${nav}`);
-  };
+  // const handleNav = (nav) => {
+  //   navigate(`/${nav}`);
+  // };
 
   return (
     <>
-      <nav className="nav">
-        <img
-          src="/img/logo.png"
-          alt="shop logo"
-          className="nav__logo"
-          onClick={() => handleNav("")}
-        />
-        <div className="img-right">
-          {status === "succeeded" ? (
-            <p className="nav__login-email" onClick={handleCartTest}>
-              {user.email}
-            </p>
-          ) : (
-            <></>
-          )}
-          <img
-            src="/img/cart.svg"
-            alt="cart"
-            className="nav__cart"
-            // onClick={() => handleNavCheck("cart")}
-            onClick={handleModalCheck}
-          />
-          <img
-            src="/img/person.svg"
-            alt="person"
-            className="nav__person"
-            onClick={() => handleNav("login")}
-          />
-          <img
-            src="/img/login.svg"
-            alt="login"
-            className="nav__log-in-out"
-            onClick={handleClickLogout}
-          />
-        </div>
+      <nav className={style.nav}>
+        <h2 className={style.title}>Keep</h2>
+        <NavBtn src={"/img/light-bulb.svg"} text={"Notes"} />
+        {/* tag는 따로 map으로 불어날 예정 */}
+        <NavBtn src={"/img/tag.svg"} text={"Coding"} />
+        <NavBtn src={"/img/tag.svg"} text={"Coding"} />
+        <NavBtn src={"/img/tag.svg"} text={"Coding"} />
+        <NavBtn src={"/img/pencil.svg"} text={"Edit Note"} />
+        <NavBtn src={"/img/box.svg"} text={"Archive"} />
+        <NavBtn src={"/img/trash-can.svg"} text={"Trash"} />
       </nav>
-      {isOpen && <Modal />}
     </>
   );
 }

@@ -1,12 +1,16 @@
 import "./App.css";
-
+import Nav from "./components/Nav";
 import { Outlet, Routes, Route } from "react-router-dom";
 
 const Layout = () => {
   return (
     <>
-      {/* <Nav /> */}
+      {/* <div className="leftSectionWrapper"> */}
+      <Nav />
+      {/* </div> */}
+      {/* <div className="rightSectionWrapper"> */}
       <Outlet />
+      {/* </div> */}
     </>
   );
 };

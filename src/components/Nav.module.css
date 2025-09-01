@@ -1,0 +1,13 @@
+@import "../styles/Root.css";
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  width: var(--nav-width);
+  background-color: var(--nav-color);
+  height: 100dvh;
+}
+
+.title {
+  margin: 20px 30px 55px 30px;
+}
