@@ -1,0 +1,65 @@
+@import "./Root.css";
+
+/* detail */
+.detail-page {
+  background-image: var(--main-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 0 15%;
+  margin-top: -40px;
+}
+
+.detail__img {
+  display: inline-block;
+  width: 400px;
+  height: auto;
+}
+
+.detail-right {
+  width: 550px;
+  height: 600px;
+  overflow-wrap: break-word;
+}
+
+.detail__category {
+  color: var(--text-color-lightgray);
+  font-size: 27px;
+  padding-bottom: 20px;
+}
+
+.detail__title {
+  color: var(--text-color);
+  font-size: 35px;
+  padding-bottom: 30px;
+}
+
+.detail__price {
+  color: var(--text-color);
+  font-size: 38px;
+  padding-bottom: 30px;
+}
+
+.detail__description {
+  color: var(--text-color-gray);
+  font-size: 22px;
+  padding-bottom: 60px;
+}
+
+.detail__btn {
+  width: 220px;
+  height: 60px;
+  margin-right: 40px;
+}
+
+.detail__btn.insert {
+}
+
+.detail__btn.redirect {
+  background-color: dimgrey;
+  color: bisque;
+}
+
+.padding {
+  padding-bottom: 100px;
+}

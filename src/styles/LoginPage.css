@@ -1,0 +1,64 @@
+@import "./Root.css";
+
+/* login, register 통합 */
+.login-page {
+  background-image: var(--main-color);
+  display: flex;
+  flex-direction: column;
+  margin: 0 15%;
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 180px;
+  width: 400px;
+  height: 450px;
+  /* border: 1px solid black; */
+  background-color: white;
+  box-shadow: 5px 5px var(--text-color-gray);
+}
+
+.login-box h2 {
+  margin-top: 50px;
+  font-size: 28px;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form {
+  margin-top: 40px;
+  box-shadow: 0 0 30px rgba(black, 0.1);
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 280px;
+  height: 40px;
+  padding-left: 10px;
+}
+
+.login__submit {
+  margin-top: 40px;
+  box-shadow: 0 0 30px rgba(black, 0.1);
+  box-sizing: border-box;
+  width: 280px;
+  height: 40px;
+}
+
+.login__submit input {
+  width: 280px;
+  height: 40px;
+  background-color: gray;
+}
+
+.login__register {
+  margin-top: 40px;
+}
+
+.login__register p {
+  cursor: pointer;
+}
