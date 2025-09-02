@@ -1,0 +1,23 @@
+@import "../../styles/Root.css";
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  /* padding: 5px 20px; */
+  margin-bottom: 20px;
+}
+
+.notes p {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-color-gray);
+  margin-bottom: 20px;
+}
+
+.noteholder {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+}

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
 import { loadNotesFromLocalStorage } from "./store/asyncThunks/localStorageThunk";
 
-import Nav from "./components/Nav";
+import Nav from "./components/Nav/Nav";
 import { Outlet, Routes, Route, Navigate } from "react-router-dom";
 
 import NotePage from "./pages/NotePage/index";

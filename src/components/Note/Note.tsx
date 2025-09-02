@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../styles/page.module.css";
+import style from "./Note.module.css";
 
 export default function Note() {
   return (
