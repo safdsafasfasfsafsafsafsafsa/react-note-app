@@ -1,11 +1,16 @@
 @import "../styles/Root.css";
 
 .nav {
+  position: fixed;
   display: flex;
   flex-direction: column;
   width: var(--nav-width);
+  top: 0;
+  left: 0;
+  bottom: 0;
   background-color: var(--nav-color);
   height: 100dvh;
+  z-index: 100;
 }
 
 .title {

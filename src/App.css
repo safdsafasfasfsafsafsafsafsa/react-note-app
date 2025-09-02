@@ -1,12 +1,19 @@
 @import "./styles/Root.css";
 @import "./styles/Reset.css";
 
+/* html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+} */
+
 .App {
   display: flex;
   flex-direction: row;
   background-color: var(--bg-color);
   width: 100dvw;
-  height: 100dvh;
+  min-height: 100dvh;
 }
 
 /* .leftSectionWrapper {

@@ -14,12 +14,8 @@ import TrashPage from "./pages/TrashPage/index";
 const Layout = () => {
   return (
     <>
-      {/* <div className="leftSectionWrapper"> */}
       <Nav />
-      {/* </div> */}
-      {/* <div className="rightSectionWrapper"> */}
       <Outlet />
-      {/* </div> */}
     </>
   );
 };
