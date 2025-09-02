@@ -1,17 +1,16 @@
 import React from "react";
 import style from "./Notes.module.css";
-import Note from "../../components/Note/Note";
+import Note from "./Note";
 
-interface NotesProps {
-  text: string;
-}
+// interface NotesProps {
+//   text: string;
+// }
 
-export default function Notes({ text }: NotesProps) {
+export default function NotesClean() {
   return (
     <div className={style.notes}>
-      <p>{text}</p>
-      {/* 노트 컴포넌트 map, pinned:true만 호출 */}
-      {/* 노트 컴포넌트 map, 우선순위 high 우선 호출 */}
+      {/* pinned:true map */}
+      {/* isTrash:true map */}
       <div className={style.noteholder}>
         <Note />
         <Note />

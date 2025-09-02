@@ -1,27 +1,23 @@
 import React from "react";
 import style from "./NavBtn.module.css";
 
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 interface NavBtnProps {
   src: string;
   text: string;
+  nav: string;
 }
 
-export default function NavBtn({ src, text }: NavBtnProps) {
+export default function NavBtn({ src, text, nav }: NavBtnProps) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
-  //   const { notes, status } = useSelector((state) => state.auth);
-
-  // 일반 리다이렉트
-  // const handleNav = (nav) => {
-  //   navigate(`/${nav}`);
-  // };
+  const handleNav = (nav: string) => {
+    navigate(`/${nav}`);
+  };
 
   return (
-    <div className={style.btn}>
+    <div className={style.btn} onClick={() => handleNav(nav)}>
       <img src={src} alt="img" />
       <p>{text}</p>
     </div>

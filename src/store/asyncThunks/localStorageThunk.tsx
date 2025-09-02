@@ -4,7 +4,12 @@ interface Note {
   id: string;
   title: string;
   content: string;
+  color: string;
+  priority: string;
   pinned: false;
+  tag: string;
+  date: string;
+  isTrash: false;
 }
 
 export const loadNotesFromLocalStorage = createAsyncThunk<Note[], void>(

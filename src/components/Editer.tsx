@@ -59,10 +59,10 @@ export default function Editer() {
           { value: "First.Name", title: "First Name" },
           { value: "Email", title: "Email" },
         ],
-        ai_request: (request, respondWith) =>
-          respondWith.string(() =>
-            Promise.reject("See docs to implement AI Assistant")
-          ),
+        // ai_request: (request, respondWith) =>
+        //   respondWith.string(() =>
+        //     Promise.reject("See docs to implement AI Assistant")
+        //   ),
         uploadcare_public_key: "ce262f2f2da579ca669c",
       }}
       initialValue="Welcome to TinyMCE!"

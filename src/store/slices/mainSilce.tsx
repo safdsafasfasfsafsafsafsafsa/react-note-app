@@ -7,7 +7,12 @@ interface Note {
   id: string;
   title: string;
   content: string;
+  color: string;
+  priority: string;
   pinned: false;
+  tag: string;
+  date: string;
+  isTrash: false;
 }
 
 // 2. slice의 상태 타입을 정의합니다.
