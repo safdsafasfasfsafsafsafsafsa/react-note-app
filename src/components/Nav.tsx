@@ -25,7 +25,7 @@ export default function Nav() {
         <NavBtn src={"/img/tag.svg"} text={"Coding"} />
         <NavBtn src={"/img/tag.svg"} text={"Coding"} />
         <NavBtn src={"/img/tag.svg"} text={"Coding"} />
-        <NavBtn src={"/img/pencil.svg"} text={"Edit Note"} />
+        {/* <NavBtn src={"/img/pencil.svg"} text={"Edit Note"} /> */}
         <NavBtn src={"/img/box.svg"} text={"Archive"} />
         <NavBtn src={"/img/trash-can.svg"} text={"Trash"} />
       </nav>

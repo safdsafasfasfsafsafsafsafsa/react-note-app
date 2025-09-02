@@ -1,12 +1,12 @@
 import React from "react";
-import Note from "../Note";
+import Editer from "../Editer";
 
 export default function ModalNote() {
   return (
     <div className="modal-note">
       <p>노트 생성하기</p>
       <input className="__title" type="text" name="" id="" />
-      <Note />
+      <Editer />
       <div className="low">
         <button className="__btn-tag">Add Tag</button>
         <div>
@@ -32,5 +32,5 @@ export default function ModalNote() {
 }
 
 /**
- * Note에서 작성한 걸 btn-create 누르면 noteSlice로
+ * Editer에서 작성한 걸 btn-create 누르면 noteSlice로
  */

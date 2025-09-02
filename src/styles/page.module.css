@@ -1,0 +1,132 @@
+@import "./Root.css";
+@import "./Reset.css";
+
+.page {
+  display: flex;
+  flex-direction: column;
+  width: 100dvw;
+  height: 100dvh;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 18px 40px;
+  border-bottom: 3px solid rgba(128, 128, 128, 0.1);
+}
+
+.header button {
+  display: inline-block;
+  padding: 8px 24px;
+  background-color: var(--nav-color);
+  border: transparent;
+}
+
+.header button:hover {
+  background-color: var(--btn-color-click);
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+}
+
+.search input {
+  margin-bottom: 15px;
+}
+
+.search button {
+  margin-left: auto;
+  width: 80px;
+  height: 30px;
+}
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 20px;
+  margin-bottom: 20px;
+}
+
+.notes p {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-color-gray);
+  margin-bottom: 20px;
+}
+
+/* note.module.css 분리 예정 */
+.note {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 380px;
+  height: 300px;
+  background-color: var(--note-color-white);
+  border-radius: 5px;
+  padding: 15px 12px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.27);
+}
+
+.note__title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.note__title div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.note__title p {
+  font-size: 15px;
+  margin: 0;
+}
+
+.note__content {
+  background-color: aqua;
+  /* height: 150px; */
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+.note__tag {
+  background-color: greenyellow;
+}
+
+.note__tag p {
+  font-size: 15px;
+  margin: 0;
+}
+
+.note__bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.note__bottom p {
+  font-size: 15px;
+  margin: 0;
+}
+
+.note__bottom div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.note__bottom img {
+  width: 20px;
+  height: 20px;
+}

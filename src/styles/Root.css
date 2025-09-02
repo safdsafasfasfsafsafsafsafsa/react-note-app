@@ -1,8 +1,16 @@
 :root {
   --bg-color: #e1e3e9;
   --nav-color: rgb(245, 245, 153);
+  --btn-color-click: rgb(201, 210, 33);
+
   --text-color: #12171d;
   --text-color-lightgray: #2a3038;
   --text-color-gray: #4b5055d3;
+
+  --note-color-white: white;
+  --note-color-red: red;
+  --note-color-green: green;
+  --note-color-blue: blue;
+
   --nav-width: 320px;
 }

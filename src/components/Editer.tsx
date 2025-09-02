@@ -3,7 +3,7 @@
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
-export default function Note() {
+export default function Editer() {
   return (
     <Editor
       apiKey={import.meta.env.VITE_TINY_API_KEY}

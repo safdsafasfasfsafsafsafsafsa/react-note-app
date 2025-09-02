@@ -7,6 +7,7 @@ interface Note {
   id: string;
   title: string;
   content: string;
+  pinned: false;
 }
 
 // 2. slice의 상태 타입을 정의합니다.

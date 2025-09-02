@@ -41,13 +41,19 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<NotePage />}></Route>
-          <Route index element={<Navigate to="/" />}></Route>
-          <Route index element={<TagPage />}></Route>
-          <Route index element={<ArchivePage />}></Route>
-          <Route index element={<TrashPage />}></Route>
+          <Route path="tag" element={<Navigate to="/" />}></Route>
+          <Route path="tag/:name" element={<TagPage />}></Route>
+          <Route path="archive" element={<ArchivePage />}></Route>
+          <Route path="trash" element={<TrashPage />}></Route>
         </Route>
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
     </div>
   );
 }
+
+/**
+ * tag 구별은 이름으로 하는게 좋을듯?
+ *
+ * edit note는 로고 옆에 독자적으로 띄우던가, 아니면 지우는게 낫겠다
+ */
