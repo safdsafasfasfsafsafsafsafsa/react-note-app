@@ -8,7 +8,7 @@ export default function TrashPage() {
       <div className={style.page}>
         <div className={style.wrapper}>
           <div className={style.header}>
-            <h2>Note</h2>
+            <h2>Trash</h2>
           </div>
           <NotesClean />
         </div>
