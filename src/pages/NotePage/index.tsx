@@ -24,6 +24,11 @@ export default function NotePage() {
               <Note />
               <Note />
               <Note />
+              <Note />
+              <Note />
+              <Note />
+              <Note />
+              <Note />
             </div>
           </div>
           <div className={style.notes}>
