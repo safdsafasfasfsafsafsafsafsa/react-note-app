@@ -7,6 +7,7 @@ import { openModalTop, closeModalTop } from "../../store/slices/modalTopSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import createNote from "../../utils/createNote";
 import ModalNote from "../../components/modals/ModalNote";
+import ModalTag from "../../components/modals/ModalTag";
 
 export default function NotePage() {
   const dispatch = useAppDispatch();
@@ -47,6 +48,7 @@ export default function NotePage() {
         </div>
       </div>
       {isOpen && <ModalNote onClose={() => dispatch(closeModal())} />}
+      {isTopOpen && <ModalTag onClose={() => dispatch(closeModalTop())} />}
     </>
   );
 }
