@@ -8,14 +8,54 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.modalnote {
+.wrapper {
+  display: flex;
+  flex-direction: column;
   background-color: white;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* 모달창 내용의 크기 */
-  width: 500px;
-  height: 300px;
+  width: 800px;
+  height: 500px;
+  gap: 12px;
+}
+
+.title {
+  width: 100%;
+  padding: 5px;
+}
+
+.editer {
+  /* 자동으로 늘리는 방법은? */
+  min-height: 230px;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+.BottomWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.btnTag {
+  padding: 3px;
+  font-size: 12px;
+  align-items: center;
+}
+
+.btnCreate {
+  margin-left: auto;
+  margin-top: 15px;
+  padding: 3px;
+  font-size: 14px;
 }

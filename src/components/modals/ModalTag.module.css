@@ -8,14 +8,41 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.modalnote {
+.wrapper {
+  display: flex;
+  flex-direction: column;
   background-color: white;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* 모달창 내용의 크기 */
-  width: 500px;
-  height: 300px;
+  width: 300px;
+  height: auto;
+  gap: 12px;
+}
+
+.newTag {
+  padding: 3px;
+  border: transparent;
+  border-bottom: 1px solid black;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tag {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.tag img {
+  width: 20px;
 }
