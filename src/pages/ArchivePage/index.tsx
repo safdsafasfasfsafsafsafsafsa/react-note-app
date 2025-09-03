@@ -18,5 +18,7 @@ export default function ArchivePage() {
 }
 
 /**
- * 정보가 없는데 그냥 pinned:true 모으기?
+ * 정보가 없는데 그냥 isPinned:true 모으기?
+ *
+ * 간단한 작업이 될거 같으니 Notes 배열 추출해서 filter만
  */

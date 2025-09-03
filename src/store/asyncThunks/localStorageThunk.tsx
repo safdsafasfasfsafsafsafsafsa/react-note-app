@@ -6,10 +6,11 @@ interface Note {
   content: string;
   color: string;
   priority: string;
-  pinned: false;
+  isPinned: boolean;
   tag: string;
-  date: string;
-  isTrash: false;
+  createDate: string;
+  updateDate: string;
+  isTrash: boolean;
 }
 
 export const loadNotesFromLocalStorage = createAsyncThunk<Note[], void>(
@@ -18,6 +19,14 @@ export const loadNotesFromLocalStorage = createAsyncThunk<Note[], void>(
     // localStorage에서 'notes' 키의 값을 가져옵니다.
     const savedNotes = localStorage.getItem("notes");
     // 값이 없으면 빈 배열을 반환합니다.
+    return savedNotes ? JSON.parse(savedNotes) : [];
+  }
+);
+
+export const loadProdNotesFromLocalStorage = createAsyncThunk<Note[], void>(
+  "notes/loadProdNotesFromLocalStorage",
+  async () => {
+    const savedNotes = localStorage.getItem("prodNotes");
     return savedNotes ? JSON.parse(savedNotes) : [];
   }
 );

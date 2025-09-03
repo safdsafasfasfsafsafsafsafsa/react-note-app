@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { loadNotesFromLocalStorage } from "../asyncThunks/localStorageThunk";
+import {
+  loadNotesFromLocalStorage,
+  loadProdNotesFromLocalStorage,
+} from "../asyncThunks/localStorageThunk";
 
 // 1. 메모 객체의 타입을 정의합니다.
 interface Note {
@@ -9,20 +12,23 @@ interface Note {
   content: string;
   color: string;
   priority: string;
-  pinned: false;
+  isPinned: boolean;
   tag: string;
-  date: string;
-  isTrash: false;
+  createDate: string;
+  updateDate: string;
+  isTrash: boolean;
 }
 
 // 2. slice의 상태 타입을 정의합니다.
 interface NoteState {
   notes: Note[];
+  prodNotes: Note[];
   status: "idle" | "loading" | "succeeded" | "failed";
 }
 
 const initialState: NoteState = {
   notes: [],
+  prodNotes: [],
   status: "idle",
 };
 
@@ -33,6 +39,7 @@ const mainSlice = createSlice({
     // 4. 리듀서의 액션 페이로드 타입을 정의합니다.
     addNote: (state, action: PayloadAction<Note>) => {
       state.notes.push(action.payload);
+      state.prodNotes.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -49,6 +56,19 @@ const mainSlice = createSlice({
         }
       )
       .addCase(loadNotesFromLocalStorage.rejected, (state) => {
+        state.status = "failed";
+      })
+      .addCase(loadProdNotesFromLocalStorage.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        loadProdNotesFromLocalStorage.fulfilled,
+        (state, action: PayloadAction<Note[]>) => {
+          state.status = "succeeded";
+          state.prodNotes = action.payload;
+        }
+      )
+      .addCase(loadProdNotesFromLocalStorage.rejected, (state) => {
         state.status = "failed";
       });
   },
