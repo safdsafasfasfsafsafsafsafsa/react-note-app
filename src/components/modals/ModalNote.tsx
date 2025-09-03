@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.snow.css";
-
-// import Editer from "../Editer";
 import style from "./ModalNote.module.css";
+
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { openModalTop, closeModalTop } from "../../store/slices/modalTopSlice";
+import ModalTag from "../../components/modals/ModalTag";
 
 // 모달 컴포넌트의 props 타입을 정의합니다.
 interface ModalProps {
@@ -11,6 +13,9 @@ interface ModalProps {
 }
 
 export default function ModalNote({ onClose }: ModalProps) {
+  const dispatch = useAppDispatch();
+
+  const { isTopOpen } = useAppSelector((state) => state.modalTop);
   const [value, setValue] = useState("");
 
   const handleOverlayClick = (event: React.MouseEvent) => {
@@ -26,48 +31,59 @@ export default function ModalNote({ onClose }: ModalProps) {
     event.stopPropagation();
   };
 
+  const handleModalTop = () => {
+    if (!isTopOpen) {
+      dispatch(openModalTop());
+    }
+  };
+
   return (
-    <div className={style.modal} onClick={handleOverlayClick}>
-      <div className={style.wrapper} onClick={handleContentClick}>
-        <p>노트 생성하기</p>
-        <input
-          className={style.title}
-          type="text"
-          placeholder="제목"
-          name=""
-          id=""
-        />
-        <ReactQuill
-          className={style.editer}
-          theme="snow"
-          placeholder="내용을 입력하세요"
-          value={value}
-          onChange={setValue}
-        />
-        <div className={style.bottom}>
-          <div className={style.BottomWrapper}>
-            <button className={style.btnTag}>Add Tag</button>
-            <div>
-              배경색:
-              <select name="color" id="">
-                <option value="white">white</option>
-                <option value="red">red</option>
-                <option value="green">green</option>
-                <option value="blue">blue</option>
-              </select>
+    <>
+      <div className={style.modal} onClick={handleOverlayClick}>
+        <div className={style.wrapper} onClick={handleContentClick}>
+          <p>노트 생성하기</p>
+          <input
+            className={style.title}
+            type="text"
+            placeholder="제목"
+            name=""
+            id=""
+          />
+          <ReactQuill
+            className={style.editer}
+            theme="snow"
+            placeholder="내용을 입력하세요"
+            value={value}
+            onChange={setValue}
+          />
+          <div className={style.bottom}>
+            <div className={style.BottomWrapper}>
+              <button className={style.btnTag} onClick={handleModalTop}>
+                Add Tag
+              </button>
+              <div>
+                배경색:
+                <select name="color" id="">
+                  <option value="white">white</option>
+                  <option value="red">red</option>
+                  <option value="green">green</option>
+                  <option value="blue">blue</option>
+                </select>
+              </div>
+              <div>
+                우선순위:
+                <select name="priority" id="">
+                  <option value="low">low</option>
+                  <option value="high">high</option>
+                </select>
+              </div>
             </div>
-            <div>
-              우선순위:
-              <select name="priority" id="">
-                <option value="low">low</option>
-                <option value="high">high</option>
-              </select>
-            </div>
+            <button className={style.btnCreate}>생성하기</button>
           </div>
-          <button className={style.btnCreate}>생성하기</button>
         </div>
       </div>
-    </div>
+      {isTopOpen && <ModalTag onClose={() => dispatch(closeModalTop())} />}
+    </>
   );
 }
 
