@@ -4,10 +4,6 @@ import Note from "./Note";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
-interface NotesProps {
-  text: string;
-}
-
 interface Note {
   id: string;
   title: string;
@@ -20,10 +16,6 @@ interface Note {
   updateDate: string;
   isTrash: boolean;
 }
-
-// interface NotesProps {
-//   text: string;
-// }
 
 export default function NotesClean() {
   const dispatch = useAppDispatch();
