@@ -1,3 +1,5 @@
+// https://zindex.tistory.com/362
+
 import React from "react";
 import style from "./Note.module.css";
 
@@ -22,11 +24,11 @@ interface NoteProps {
 }
 
 export default function Note({ key, note }: NoteProps) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleNav = (tagName: string) => {
-    navigate(`/tag/${tagName}`);
-  };
+  // const handleNav = (tagName: string) => {
+  //   navigate(`/tag/${tagName}`);
+  // };
 
   return (
     <div key={key} id={note.id} className={style.note}>
@@ -42,7 +44,8 @@ export default function Note({ key, note }: NoteProps) {
         </div>
       </div>
       <div className={style.note__content}>
-        <p>{note.content}</p>
+        {/* react-quill: WYSIWYG 적용 */}
+        <div dangerouslySetInnerHTML={{ __html: note.content }} />
       </div>
       <div className={style.note__tag}>
         <p>{note.tag}</p>
