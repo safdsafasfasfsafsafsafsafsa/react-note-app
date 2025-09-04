@@ -13,6 +13,10 @@ interface Note {
   isTrash: boolean;
 }
 
+interface Tags {
+  tag: string;
+}
+
 export const loadNotesFromLocalStorage = createAsyncThunk<Note[], void>(
   "notes/loadNotesFromLocalStorage",
   async () => {
@@ -28,5 +32,13 @@ export const loadProdNotesFromLocalStorage = createAsyncThunk<Note[], void>(
   async () => {
     const savedNotes = localStorage.getItem("prodNotes");
     return savedNotes ? JSON.parse(savedNotes) : [];
+  }
+);
+
+export const loadTagsFromLocalStorage = createAsyncThunk<Tags[], void>(
+  "notes/loadTagsFromLocalStorage",
+  async () => {
+    const savedTags = localStorage.getItem("tags");
+    return savedTags ? JSON.parse(savedTags) : [];
   }
 );

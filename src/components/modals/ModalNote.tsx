@@ -4,8 +4,9 @@ import "react-quill-new/dist/quill.snow.css";
 import style from "./ModalNote.module.css";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { openModalTop, closeModalTop } from "../../store/slices/modalTopSlice";
+import { openModalTag, closeModalTag } from "../../store/slices/modalSlice";
 import ModalTag from "../../components/modals/ModalTag";
+import createNote from "../../utils/createNote";
 
 // 모달 컴포넌트의 props 타입을 정의합니다.
 interface ModalProps {
@@ -15,7 +16,7 @@ interface ModalProps {
 export default function ModalNote({ onClose }: ModalProps) {
   const dispatch = useAppDispatch();
 
-  const { isTopOpen } = useAppSelector((state) => state.modalTop);
+  const { isTagOpen } = useAppSelector((state) => state.modal);
   const [value, setValue] = useState("");
 
   const handleOverlayClick = (event: React.MouseEvent) => {
@@ -31,9 +32,9 @@ export default function ModalNote({ onClose }: ModalProps) {
     event.stopPropagation();
   };
 
-  const handleModalTop = () => {
-    if (!isTopOpen) {
-      dispatch(openModalTop());
+  const handleModalTag = () => {
+    if (!isTagOpen) {
+      dispatch(openModalTag());
     }
   };
 
@@ -58,7 +59,7 @@ export default function ModalNote({ onClose }: ModalProps) {
           />
           <div className={style.bottom}>
             <div className={style.BottomWrapper}>
-              <button className={style.btnTag} onClick={handleModalTop}>
+              <button className={style.btnTag} onClick={handleModalTag}>
                 Add Tag
               </button>
               <div>
@@ -82,7 +83,7 @@ export default function ModalNote({ onClose }: ModalProps) {
           </div>
         </div>
       </div>
-      {isTopOpen && <ModalTag onClose={() => dispatch(closeModalTop())} />}
+      {isTagOpen && <ModalTag onClose={() => dispatch(closeModalTag())} />}
     </>
   );
 }

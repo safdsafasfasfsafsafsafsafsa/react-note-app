@@ -1,34 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+// import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface Modal {
-  isOpen: boolean;
+  isNoteOpen: boolean;
+  isTagOpen: boolean;
+  isSortOpen: boolean;
 }
 
 const initialState: Modal = {
-  isOpen: false,
+  isNoteOpen: false,
+  isTagOpen: false,
+  isSortOpen: false,
 };
 
 const modalSlice = createSlice({
   name: "modal",
-  // initialState: {
-  //   isOpen: false,
-  // },
   initialState,
   reducers: {
-    openModal: (state) => {
-      state.isOpen = true;
+    openModalNote: (state) => {
+      state.isNoteOpen = true;
     },
-    closeModal: (state) => {
-      state.isOpen = false;
+    closeModalNote: (state) => {
+      state.isNoteOpen = false;
     },
-    // PayloadAction을 사용하여 페이로드의 타입을 정의할 수도 있습니다.
-    toggleModal: (state, action: PayloadAction<boolean>) => {
-      state.isOpen = action.payload;
+    openModalTag: (state) => {
+      state.isTagOpen = true;
+    },
+    closeModalTag: (state) => {
+      state.isTagOpen = false;
+    },
+    openModalSort: (state) => {
+      state.isSortOpen = true;
+    },
+    closeModalSort: (state) => {
+      state.isSortOpen = false;
     },
   },
 });
-export const { openModal, closeModal, toggleModal } = modalSlice.actions;
+
+export const {
+  openModalNote,
+  closeModalNote,
+  openModalTag,
+  closeModalTag,
+  openModalSort,
+  closeModalSort,
+} = modalSlice.actions;
 export default modalSlice.reducer;
 
 /**

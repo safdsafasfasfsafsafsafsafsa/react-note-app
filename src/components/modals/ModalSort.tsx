@@ -1,7 +1,7 @@
-// https://minsunblog.com/blog/7fac86c710634f93a83d0a83a51ca688
+// https://hianna.tistory.com/309
 
 import React from "react";
-import style from "./ModalTag.module.css";
+import style from "./ModalSort.module.css";
 
 interface ModalProps {
   onClose: () => void;
@@ -21,28 +21,25 @@ export default function ModalSort({ onClose }: ModalProps) {
   return (
     <div className={style.modal} onClick={handleOverlayClick}>
       <div className={style.wrapper} onClick={handleContentClick}>
-        <p>태그 추가하기</p>
-        <input
-          className={style.newTag}
-          placeholder="새 태그 추가"
-          type="text"
-          name=""
-          id=""
-        />
-        <div className={style.tags}>
-          {/* map으로 tag만 추출 */}
-          <div className={style.tag}>
-            <p>Coding</p>
-            <img src="/img/plus.svg" alt="" />
-          </div>
-          <div className={style.tag}>
-            <p>Coding</p>
-            <img src="/img/plus.svg" alt="" />
-          </div>
-          <div className={style.tag}>
-            <p>Coding</p>
-            <img src="/img/plus.svg" alt="" />
-          </div>
+        <div>
+          <p>정렬</p>
+          <button>CLEAR</button>
+        </div>
+        <div>
+          <p>PRIORITY</p>
+          <input type="radio" name="sort" value="ltoh" />
+          Low to High
+          <input type="radio" name="sort" value="htol" />
+          High to Low
+        </div>
+        <div>
+          <p>DATE</p>
+          <input type="radio" name="sort" value="latest" />
+          Sort by Latest
+          <input type="radio" name="sort" value="created" />
+          Sort by Created
+          <input type="radio" name="sort" value="edited" />
+          Sort by Edited
         </div>
       </div>
     </div>

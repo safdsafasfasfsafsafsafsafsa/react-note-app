@@ -3,6 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import {
   loadNotesFromLocalStorage,
   loadProdNotesFromLocalStorage,
+  loadTagsFromLocalStorage,
 } from "../asyncThunks/localStorageThunk";
 
 // 1. 메모 객체의 타입을 정의합니다.
@@ -19,16 +20,22 @@ interface Note {
   isTrash: boolean;
 }
 
+interface Tags {
+  tag: string;
+}
+
 // 2. slice의 상태 타입을 정의합니다.
 interface NoteState {
   notes: Note[];
   prodNotes: Note[];
+  tags: Tags[];
   status: "idle" | "loading" | "succeeded" | "failed";
 }
 
 const initialState: NoteState = {
   notes: [],
   prodNotes: [],
+  tags: [],
   status: "idle",
 };
 
@@ -69,6 +76,19 @@ const mainSlice = createSlice({
         }
       )
       .addCase(loadProdNotesFromLocalStorage.rejected, (state) => {
+        state.status = "failed";
+      })
+      .addCase(loadTagsFromLocalStorage.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        loadTagsFromLocalStorage.fulfilled,
+        (state, action: PayloadAction<Tags[]>) => {
+          state.status = "succeeded";
+          state.tags = action.payload;
+        }
+      )
+      .addCase(loadTagsFromLocalStorage.rejected, (state) => {
         state.status = "failed";
       });
   },
