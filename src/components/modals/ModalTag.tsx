@@ -34,11 +34,11 @@ export default function ModalTag({ onClose }: ModalProps) {
             <img src="/img/plus.svg" alt="" />
           </div>
           <div className={style.tag}>
-            <p>Coding</p>
+            <p>Exercise</p>
             <img src="/img/plus.svg" alt="" />
           </div>
           <div className={style.tag}>
-            <p>Coding</p>
+            <p>Quotes</p>
             <img src="/img/plus.svg" alt="" />
           </div>
         </div>

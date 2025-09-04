@@ -21,25 +21,60 @@ export default function ModalSort({ onClose }: ModalProps) {
   return (
     <div className={style.modal} onClick={handleOverlayClick}>
       <div className={style.wrapper} onClick={handleContentClick}>
-        <div>
+        <div className={style.top}>
           <p>정렬</p>
           <button>CLEAR</button>
         </div>
-        <div>
+        <div className={style.priority}>
           <p>PRIORITY</p>
-          <input type="radio" name="sort" value="ltoh" />
-          Low to High
-          <input type="radio" name="sort" value="htol" />
-          High to Low
+          <label>
+            <input
+              className={style.input}
+              type="radio"
+              name="sort"
+              value="ltoh"
+            />
+            Low to High
+          </label>
+          <label>
+            <input
+              className={style.input}
+              type="radio"
+              name="sort"
+              value="htol"
+            />
+            High to Low
+          </label>
         </div>
-        <div>
+        <div className={style.date}>
           <p>DATE</p>
-          <input type="radio" name="sort" value="latest" />
-          Sort by Latest
-          <input type="radio" name="sort" value="created" />
-          Sort by Created
-          <input type="radio" name="sort" value="edited" />
-          Sort by Edited
+          <label>
+            <input
+              className={style.input}
+              type="radio"
+              name="sort"
+              value="latest"
+            />
+            Sort by Latest
+          </label>
+          <label>
+            <input
+              className={style.input}
+              type="radio"
+              name="sort"
+              value="created"
+            />
+            Sort by Created
+          </label>
+          <label>
+            <input
+              className={style.input}
+              type="radio"
+              name="sort"
+              value="edited"
+            />
+            Sort by Edited
+          </label>
         </div>
       </div>
     </div>
