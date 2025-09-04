@@ -5,6 +5,7 @@ import {
   loadProdNotesFromLocalStorage,
   loadTagsFromLocalStorage,
 } from "../asyncThunks/localStorageThunk";
+import createNote from "../../utils/createNote";
 
 // 1. 메모 객체의 타입을 정의합니다.
 interface Note {

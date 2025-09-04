@@ -6,7 +6,7 @@ import style from "./ModalNote.module.css";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { openModalTag, closeModalTag } from "../../store/slices/modalSlice";
 import ModalTag from "../../components/modals/ModalTag";
-import createNote from "../../utils/createNote";
+// import createNote from "../../utils/createNote";
 
 // 모달 컴포넌트의 props 타입을 정의합니다.
 interface ModalProps {
@@ -16,8 +16,13 @@ interface ModalProps {
 export default function ModalNote({ onClose }: ModalProps) {
   const dispatch = useAppDispatch();
 
+  const { notes, prodNotes, tags, status } = useAppSelector(
+    (state) => state.main
+  );
   const { isTagOpen } = useAppSelector((state) => state.modal);
   const [value, setValue] = useState("");
+  const [selectedColor, setSelectedColor] = useState("white");
+  const [selectedPriority, setSelectedPriority] = useState("low");
 
   const handleOverlayClick = (event: React.MouseEvent) => {
     // 이벤트가 발생한 요소가 modal-overlay인지 확인합니다.
@@ -37,6 +42,18 @@ export default function ModalNote({ onClose }: ModalProps) {
       dispatch(openModalTag());
     }
   };
+
+  const handleChangeColor = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedColor(event.target.value);
+  };
+
+  const handleChangePriority = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedPriority(event.target.value);
+  };
+
+  const handleAddNewNote = () => {};
 
   return (
     <>
@@ -64,7 +81,7 @@ export default function ModalNote({ onClose }: ModalProps) {
               </button>
               <div>
                 배경색:
-                <select name="color" id="">
+                <select name="color" id="color" onChange={handleChangeColor}>
                   <option value="white">white</option>
                   <option value="red">red</option>
                   <option value="green">green</option>
@@ -73,7 +90,11 @@ export default function ModalNote({ onClose }: ModalProps) {
               </div>
               <div>
                 우선순위:
-                <select name="priority" id="">
+                <select
+                  name="priority"
+                  id="priority"
+                  onChange={handleChangePriority}
+                >
                   <option value="low">low</option>
                   <option value="high">high</option>
                 </select>

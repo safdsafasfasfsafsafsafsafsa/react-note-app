@@ -14,6 +14,7 @@ interface Note {
 }
 
 export default function createNote(noteData: Partial<Note>) {
+  // export default function createNote() {
   const newId = uuidv4();
 
   return {
@@ -27,6 +28,7 @@ export default function createNote(noteData: Partial<Note>) {
     createDate: new Date().toISOString(),
     updateDate: "",
     isTrash: false,
-    ...noteData, // 전달된 데이터로 덮어쓰기
+    ...noteData,
+    // 전달된 데이터로 덮어쓰기
   };
 }
