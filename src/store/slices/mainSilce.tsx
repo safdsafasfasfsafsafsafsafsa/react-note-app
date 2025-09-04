@@ -4,8 +4,9 @@ import {
   loadNotesFromLocalStorage,
   loadProdNotesFromLocalStorage,
   loadTagsFromLocalStorage,
+  addNoteToLocalStorage,
 } from "../asyncThunks/localStorageThunk";
-import createNote from "../../utils/createNote";
+// import createNote from "../../utils/createNote";
 
 // 1. 메모 객체의 타입을 정의합니다.
 interface Note {
@@ -44,15 +45,16 @@ const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
-    // 4. 리듀서의 액션 페이로드 타입을 정의합니다.
-    addNote: (state, action: PayloadAction<Note>) => {
-      state.notes.push(action.payload);
-      state.prodNotes.push(action.payload);
-    },
+    // // 4. 리듀서의 액션 페이로드 타입을 정의합니다.
+    // addNote: (state, action: PayloadAction<Note>) => {
+    //   state.notes.push(action.payload);
+    //   state.prodNotes.push(action.payload);
+    // },
   },
   extraReducers: (builder) => {
     // 5. 비동기 thunk의 생명주기 액션을 처리합니다.
     builder
+      // 시작 시 로드
       .addCase(loadNotesFromLocalStorage.pending, (state) => {
         state.status = "loading";
       })
@@ -91,9 +93,24 @@ const mainSlice = createSlice({
       )
       .addCase(loadTagsFromLocalStorage.rejected, (state) => {
         state.status = "failed";
+      })
+      // 노트 업로드
+      .addCase(addNoteToLocalStorage.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        addNoteToLocalStorage.fulfilled,
+        (state, action: PayloadAction<Note>) => {
+          state.status = "succeeded";
+          state.notes.push(action.payload);
+          state.prodNotes.push(action.payload);
+        }
+      )
+      .addCase(addNoteToLocalStorage.rejected, (state) => {
+        state.status = "failed";
       });
   },
 });
 
-export const { addNote } = mainSlice.actions;
+// export const { addNote } = mainSlice.actions;
 export default mainSlice.reducer;

@@ -1,7 +1,11 @@
 import "./App.css";
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
-import { loadNotesFromLocalStorage } from "./store/asyncThunks/localStorageThunk";
+import {
+  loadNotesFromLocalStorage,
+  loadProdNotesFromLocalStorage,
+  loadTagsFromLocalStorage,
+} from "./store/asyncThunks/localStorageThunk";
 
 import Nav from "./components/Nav/Nav";
 import { Outlet, Routes, Route, Navigate } from "react-router-dom";
@@ -26,6 +30,8 @@ export default function App() {
 
   useEffect(() => {
     dispatch(loadNotesFromLocalStorage());
+    dispatch(loadProdNotesFromLocalStorage());
+    dispatch(loadTagsFromLocalStorage());
   }, [dispatch]);
 
   if (status === "loading") {

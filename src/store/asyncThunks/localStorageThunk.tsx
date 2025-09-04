@@ -1,4 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import createNote from "../../utils/createNote";
 
 interface Note {
   id: string;
@@ -17,6 +19,15 @@ interface Tags {
   tag: string;
 }
 
+interface NewNote {
+  newTitle: string;
+  newContent: string;
+  newColor: string;
+  newPriority: string;
+  // newTag: string;
+}
+
+// 시작 시 호출
 export const loadNotesFromLocalStorage = createAsyncThunk<Note[], void>(
   "notes/loadNotesFromLocalStorage",
   async () => {
@@ -40,5 +51,30 @@ export const loadTagsFromLocalStorage = createAsyncThunk<Tags[], void>(
   async () => {
     const savedTags = localStorage.getItem("tags");
     return savedTags ? JSON.parse(savedTags) : [];
+  }
+);
+
+// 새 노트 작성
+export const addNoteToLocalStorage = createAsyncThunk<Note, NewNote>(
+  "notes/addNoteToLocalStorage",
+  async (item, thunkAPI) => {
+    try {
+      const newNote = createNote({
+        title: item.newTitle,
+        content: item.newContent,
+        color: item.newColor,
+        priority: item.newPriority,
+        // tag: newTag,
+      });
+
+      return newNote;
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "알 수 없는 에러가 발생했습니다.";
+      console.error("업로드 중 에러 발생:", message);
+      return thunkAPI.rejectWithValue(message);
+    }
   }
 );

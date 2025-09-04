@@ -5,12 +5,20 @@ import style from "./ModalNote.module.css";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { openModalTag, closeModalTag } from "../../store/slices/modalSlice";
+import { addNoteToLocalStorage } from "../../store/asyncThunks/localStorageThunk";
 import ModalTag from "../../components/modals/ModalTag";
-import createNote from "../../utils/createNote";
 
 // 모달 컴포넌트의 props 타입을 정의합니다.
 interface ModalProps {
   onClose: () => void;
+}
+
+interface NewNote {
+  newTitle: string;
+  newContent: string;
+  newColor: string;
+  newPriority: string;
+  // newTag: string;
 }
 
 export default function ModalNote({ onClose }: ModalProps) {
@@ -20,11 +28,12 @@ export default function ModalNote({ onClose }: ModalProps) {
     (state) => state.main
   );
   const { isTagOpen } = useAppSelector((state) => state.modal);
-  const [value, setValue] = useState("");
-  const [selectedColor, setSelectedColor] = useState("white");
-  const [selectedPriority, setSelectedPriority] = useState("low");
 
-  const myNote = createNote({ title: "TypeScript 학습", isPinned: true });
+  // addNote로 보낼 내용, 전달 성공하면 초기화하기
+  const [titleValue, setTitleValue] = useState<string>("");
+  const [editerValue, setEditerValue] = useState<string>("");
+  const [selectedColor, setSelectedColor] = useState<string>("white");
+  const [selectedPriority, setSelectedPriority] = useState<string>("low");
 
   const handleOverlayClick = (event: React.MouseEvent) => {
     // 이벤트가 발생한 요소가 modal-overlay인지 확인합니다.
@@ -33,7 +42,6 @@ export default function ModalNote({ onClose }: ModalProps) {
       onClose();
     }
   };
-
   const handleContentClick = (event: React.MouseEvent) => {
     // 이벤트 버블링을 막아 모달 오버레이로 클릭 이벤트가 전달되는 것을 막습니다.
     event.stopPropagation();
@@ -45,17 +53,40 @@ export default function ModalNote({ onClose }: ModalProps) {
     }
   };
 
+  // 타이틀과 드롭다운 메뉴 체크하기
+  const handleChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitleValue(event.target.value);
+  };
   const handleChangeColor = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedColor(event.target.value);
   };
-
   const handleChangePriority = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setSelectedPriority(event.target.value);
   };
 
-  const handleAddNewNote = () => {};
+  // 새 노트 추가: 정상적으로 처리되면 초기화시켜야
+  const handleAddNewNote = ({
+    newTitle,
+    newContent,
+    newColor,
+    newPriority,
+  }: // newTag,
+  NewNote) => {
+    dispatch(
+      addNoteToLocalStorage({ newTitle, newContent, newColor, newPriority })
+    );
+
+    // 성공 시 초기화
+    if (status === "succeeded") {
+      setTitleValue("");
+      setEditerValue("");
+      setSelectedColor("white");
+      setSelectedPriority("low");
+      dispatch(closeModalTag());
+    }
+  };
 
   return (
     <>
@@ -66,15 +97,15 @@ export default function ModalNote({ onClose }: ModalProps) {
             className={style.title}
             type="text"
             placeholder="제목"
-            name=""
-            id=""
+            value={titleValue}
+            onChange={handleChangeTitle}
           />
           <ReactQuill
             className={style.editer}
             theme="snow"
             placeholder="내용을 입력하세요"
-            value={value}
-            onChange={setValue}
+            value={editerValue}
+            onChange={setEditerValue}
           />
           <div className={style.bottom}>
             <div className={style.BottomWrapper}>
@@ -102,7 +133,19 @@ export default function ModalNote({ onClose }: ModalProps) {
                 </select>
               </div>
             </div>
-            <button className={style.btnCreate}>생성하기</button>
+            <button
+              className={style.btnCreate}
+              onClick={() =>
+                handleAddNewNote({
+                  newTitle: titleValue,
+                  newContent: editerValue,
+                  newColor: selectedColor,
+                  newPriority: selectedPriority,
+                })
+              }
+            >
+              생성하기
+            </button>
           </div>
         </div>
       </div>
