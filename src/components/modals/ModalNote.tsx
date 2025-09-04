@@ -6,7 +6,7 @@ import style from "./ModalNote.module.css";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { openModalTag, closeModalTag } from "../../store/slices/modalSlice";
 import ModalTag from "../../components/modals/ModalTag";
-// import createNote from "../../utils/createNote";
+import createNote from "../../utils/createNote";
 
 // 모달 컴포넌트의 props 타입을 정의합니다.
 interface ModalProps {
@@ -23,6 +23,8 @@ export default function ModalNote({ onClose }: ModalProps) {
   const [value, setValue] = useState("");
   const [selectedColor, setSelectedColor] = useState("white");
   const [selectedPriority, setSelectedPriority] = useState("low");
+
+  const myNote = createNote({ title: "TypeScript 학습", isPinned: true });
 
   const handleOverlayClick = (event: React.MouseEvent) => {
     // 이벤트가 발생한 요소가 modal-overlay인지 확인합니다.
