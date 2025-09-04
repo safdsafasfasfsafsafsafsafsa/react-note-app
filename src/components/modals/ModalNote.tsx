@@ -4,7 +4,11 @@ import "react-quill-new/dist/quill.snow.css";
 import style from "./ModalNote.module.css";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { openModalTag, closeModalTag } from "../../store/slices/modalSlice";
+import {
+  openModalTag,
+  closeModalTag,
+  closeModalNote,
+} from "../../store/slices/modalSlice";
 import { addNoteToLocalStorage } from "../../store/asyncThunks/localStorageThunk";
 import ModalTag from "../../components/modals/ModalTag";
 
@@ -84,7 +88,7 @@ export default function ModalNote({ onClose }: ModalProps) {
       setEditerValue("");
       setSelectedColor("white");
       setSelectedPriority("low");
-      dispatch(closeModalTag());
+      dispatch(closeModalNote());
     }
   };
 

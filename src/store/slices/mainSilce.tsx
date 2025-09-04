@@ -104,6 +104,9 @@ const mainSlice = createSlice({
           state.status = "succeeded";
           state.notes.push(action.payload);
           state.prodNotes.push(action.payload);
+
+          localStorage.setItem("notes", JSON.stringify(state.notes));
+          localStorage.setItem("prodNotes", JSON.stringify(state.prodNotes));
         }
       )
       .addCase(addNoteToLocalStorage.rejected, (state) => {
