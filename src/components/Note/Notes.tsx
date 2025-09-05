@@ -13,8 +13,6 @@ import {
 } from "../../utils/sortOperation";
 
 export default function Notes({ text, isPinnedCheck }: NotesProps) {
-  const dispatch = useAppDispatch();
-
   const { prodNotes } = useAppSelector((state) => state.main);
   const { sortOption } = useAppSelector((state) => state.sort);
   let sortedNote = [];

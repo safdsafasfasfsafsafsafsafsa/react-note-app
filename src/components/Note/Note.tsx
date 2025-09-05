@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { updatePinToLocalStorage } from "../../store/asyncThunks/noteThunk";
 import type { Note, NoteProps } from "../../interfaces/types";
 import dateFormat from "../../utils/dateFormat";
+import { truncateText } from "../../utils/truncateText";
 
 export default function Note({ note }: NoteProps) {
   // const navigate = useNavigate();
@@ -23,6 +24,10 @@ export default function Note({ note }: NoteProps) {
     dispatch(updatePinToLocalStorage(note));
   };
 
+  // 타이틀, 내용 줄이기
+  const trunTitle = truncateText(note.title, 18);
+  const trunContext = truncateText(note.content, 160);
+
   // 지역 변환: yyyy/mm/dd hh:mm:ss
   const [currentNote, setCurrentNote] = useState<Note>(note);
   const dateForNote = dateFormat(new Date(currentNote.createDate));
@@ -34,7 +39,7 @@ export default function Note({ note }: NoteProps) {
       style={{ backgroundColor: note.color }}
     >
       <div className={style.note__title}>
-        <h3>{note.title}</h3>
+        <h3>{trunTitle}</h3>
         <div>
           <p>{note.priority}</p>
           {note.isPinned ? (
@@ -54,7 +59,7 @@ export default function Note({ note }: NoteProps) {
       </div>
       <div className={style.note__content}>
         {/* react-quill: WYSIWYG 적용 */}
-        <div dangerouslySetInnerHTML={{ __html: note.content }} />
+        <div dangerouslySetInnerHTML={{ __html: trunContext }} />
       </div>
       <div className={style.note__tag}>
         <p>{note.tag}</p>
