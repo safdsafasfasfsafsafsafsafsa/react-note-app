@@ -4,19 +4,6 @@ import Note from "./Note";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
-// interface Note {
-//   id: string;
-//   title: string;
-//   content: string;
-//   color: string;
-//   priority: string;
-//   isPinned: boolean;
-//   tag: string;
-//   createDate: string;
-//   updateDate: string;
-//   isTrash: boolean;
-// }
-
 export default function NotesClean() {
   const dispatch = useAppDispatch();
 

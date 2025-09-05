@@ -9,23 +9,6 @@ import {
 import type { Note, Tags } from "../../interfaces/types";
 // import createNote from "../../utils/createNote";
 
-// interface Note {
-//   id: string;
-//   title: string;
-//   content: string;
-//   color: string;
-//   priority: string;
-//   isPinned: boolean;
-//   tag: string;
-//   createDate: string;
-//   updateDate: string;
-//   isTrash: boolean;
-// }
-
-// interface Tags {
-//   tag: string;
-// }
-
 // 2. slice의 상태 타입을 정의합니다.
 interface NoteState {
   notes: Note[];

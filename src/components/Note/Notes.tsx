@@ -9,19 +9,6 @@ interface NotesProps {
   text: string;
 }
 
-// interface Note {
-//   id: string;
-//   title: string;
-//   content: string;
-//   color: string;
-//   priority: string;
-//   isPinned: boolean;
-//   tag: string;
-//   createDate: string;
-//   updateDate: string;
-//   isTrash: boolean;
-// }
-
 export default function Notes({ text }: NotesProps) {
   const dispatch = useAppDispatch();
 

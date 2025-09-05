@@ -7,24 +7,6 @@ import { useNavigate } from "react-router-dom";
 import type { Note, NoteProps } from "../../interfaces/types";
 import dateFormat from "../../utils/dateFormat";
 
-// interface Note {
-//   id: string;
-//   title: string;
-//   content: string;
-//   color: string;
-//   priority: string;
-//   isPinned: boolean;
-//   tag: string;
-//   createDate: string;
-//   updateDate: string;
-//   isTrash: boolean;
-// }
-
-// interface NoteProps {
-//   key: string;
-//   note: Note;
-// }
-
 export default function Note({ key, note }: NoteProps) {
   // const navigate = useNavigate();
 
