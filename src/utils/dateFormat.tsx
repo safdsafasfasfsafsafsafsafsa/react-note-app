@@ -12,6 +12,7 @@ export default function dateFormat(date: Date) {
   const min = date.getMinutes();
   const sec = date.getSeconds();
 
+  // yyyy/mm/dd hh:mm:ss
   return (
     [year, padTwoDigits(month), padTwoDigits(day)].join("/") +
     " " +

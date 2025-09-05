@@ -1,21 +1,25 @@
 // https://zindex.tistory.com/362
 
-import React from "react";
+import React, { useState } from "react";
 import style from "./Note.module.css";
 
 import { useNavigate } from "react-router-dom";
 import type { Note, NoteProps } from "../../interfaces/types";
 import dateFormat from "../../utils/dateFormat";
 
-export default function Note({ key, note }: NoteProps) {
+export default function Note({ note }: NoteProps) {
   // const navigate = useNavigate();
 
   // const handleNav = (tagName: string) => {
   //   navigate(`/tag/${tagName}`);
   // };
 
+  // yyyy/mm/dd hh:mm:ss
+  const [currentNote, setCurrentNote] = useState<Note>(note);
+  const dateForNote = dateFormat(currentNote.createDate);
+
   return (
-    <div key={key} id={note.id} className={style.note}>
+    <div id={note.id} className={style.note}>
       <div className={style.note__title}>
         <h3>{note.title}</h3>
         <div>
@@ -35,7 +39,7 @@ export default function Note({ key, note }: NoteProps) {
         <p>{note.tag}</p>
       </div>
       <div className={style.note__bottom}>
-        <p>{dateFormat(note.createDate)}</p>
+        <p>{dateForNote}</p>
         <div>
           <img src="/img/pencil.svg" alt="update" />
           <img src="/img/trash-can.svg" alt="delete" />

@@ -7,7 +7,6 @@ import {
   addNoteToLocalStorage,
 } from "../asyncThunks/localStorageThunk";
 import type { Note, Tags } from "../../interfaces/types";
-// import createNote from "../../utils/createNote";
 
 // 2. slice의 상태 타입을 정의합니다.
 interface NoteState {
@@ -33,6 +32,8 @@ const mainSlice = createSlice({
     //   state.notes.push(action.payload);
     //   state.prodNotes.push(action.payload);
     // },
+    // changePinned: (state, action: PayloadAction<Note>) => {
+    // }
   },
   extraReducers: (builder) => {
     // 5. 비동기 thunk의 생명주기 액션을 처리합니다.
@@ -44,8 +45,16 @@ const mainSlice = createSlice({
       .addCase(
         loadNotesFromLocalStorage.fulfilled,
         (state, action: PayloadAction<Note[]>) => {
+          // ✅ 로컬 스토리지에서 불러온 노트 배열을 순회하며 날짜를 Date 객체로 변환
+          // 로컬 스토리지는 자동 string 변환 -> 꺼낼 때 다시 Date 변환해야
+          const parsedNotes = action.payload.map((note) => ({
+            ...note,
+            createDate: new Date(note.createDate),
+            updateDate: new Date(note.updateDate),
+          }));
+
           state.status = "succeeded";
-          state.notes = action.payload;
+          state.notes = parsedNotes;
         }
       )
       .addCase(loadNotesFromLocalStorage.rejected, (state) => {
@@ -57,8 +66,14 @@ const mainSlice = createSlice({
       .addCase(
         loadProdNotesFromLocalStorage.fulfilled,
         (state, action: PayloadAction<Note[]>) => {
+          const parsedNotes = action.payload.map((note) => ({
+            ...note,
+            createDate: new Date(note.createDate),
+            updateDate: new Date(note.updateDate),
+          }));
+
           state.status = "succeeded";
-          state.prodNotes = action.payload;
+          state.prodNotes = parsedNotes;
         }
       )
       .addCase(loadProdNotesFromLocalStorage.rejected, (state) => {
