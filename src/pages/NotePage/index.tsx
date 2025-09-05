@@ -23,6 +23,9 @@ export default function NotePage() {
     (state) => state.modal
   );
 
+  // isPinned: true인 객체의 갯수
+  const pinnedNoteCount = prodNotes.filter((note) => note.isPinned).length;
+
   const handleModalNote = () => {
     if (!isNoteOpen) {
       dispatch(openModalNote());
@@ -55,7 +58,7 @@ export default function NotePage() {
             <button onClick={handleModalSort}>정렬</button>
           </div>
           <Notes
-            text={`Pinned Notes (${prodNotes.length})`}
+            text={`Pinned Notes (${pinnedNoteCount})`}
             isPinnedCheck={true}
           />
           <Notes
