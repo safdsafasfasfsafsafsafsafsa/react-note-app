@@ -52,6 +52,7 @@ export const updatePinToLocalStorage = createAsyncThunk<Note, Note>(
 );
 
 // 수정: 색상 지정
+// Note 수정 버튼 클릭해 ModalNote 나오면 수정 가능하도록
 export const updateColorToLocalStorage = createAsyncThunk<Note, Note>(
   "notes/updateColorToLocalStorage",
   async (item, thunkAPI) => {

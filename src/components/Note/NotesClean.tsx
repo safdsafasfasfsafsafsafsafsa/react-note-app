@@ -1,22 +1,20 @@
 import React from "react";
 import style from "./Notes.module.css";
-import Note from "./Note";
+import Note from "../../components/Note/Note";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 
 export default function NotesClean() {
-  const dispatch = useAppDispatch();
-
-  const { notes } = useAppSelector((state) => state.main);
+  const { prodNotes } = useAppSelector((state) => state.main);
 
   return (
     <div className={style.notes}>
       {/* isPinned:true map */}
       {/* isTrash:true map */}
       <div className={style.noteholder}>
-        {notes.map((note) => (
-          <Note key={note.id} note={note} />
-        ))}
+        {prodNotes.map((note) =>
+          note.isPinned ? <Note key={note.id} note={note} /> : <></>
+        )}
       </div>
     </div>
   );
