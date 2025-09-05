@@ -30,15 +30,7 @@ const initialState: NoteState = {
 const mainSlice = createSlice({
   name: "main",
   initialState,
-  reducers: {
-    // // 4. 리듀서의 액션 페이로드 타입을 정의합니다.
-    // addNote: (state, action: PayloadAction<Note>) => {
-    //   state.notes.push(action.payload);
-    //   state.prodNotes.push(action.payload);
-    // },
-    // changePinned: (state, action: PayloadAction<Note>) => {
-    // }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     // 5. 비동기 thunk의 생명주기 액션을 처리합니다.
     builder
