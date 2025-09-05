@@ -28,7 +28,11 @@ export default function Note({ note }: NoteProps) {
   const dateForNote = dateFormat(currentNote.createDate);
 
   return (
-    <div id={note.id} className={style.note}>
+    <div
+      id={note.id}
+      className={style.note}
+      style={{ backgroundColor: note.color }}
+    >
       <div className={style.note__title}>
         <h3>{note.title}</h3>
         <div>

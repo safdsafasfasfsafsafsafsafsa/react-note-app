@@ -108,9 +108,9 @@ export default function ModalNote({ onClose }: ModalProps) {
                 배경색:
                 <select name="color" id="color" onChange={handleChangeColor}>
                   <option value="white">white</option>
-                  <option value="red">red</option>
-                  <option value="green">green</option>
-                  <option value="blue">blue</option>
+                  <option value="#ffe6e6">red</option>
+                  <option value="#e6ffe6">green</option>
+                  <option value="#e6e6ff">blue</option>
                 </select>
               </div>
               <div>

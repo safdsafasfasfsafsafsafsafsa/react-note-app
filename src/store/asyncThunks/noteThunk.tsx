@@ -50,3 +50,25 @@ export const updatePinToLocalStorage = createAsyncThunk<Note, Note>(
     }
   }
 );
+
+// 수정: 색상 지정
+export const updateColorToLocalStorage = createAsyncThunk<Note, Note>(
+  "notes/updateColorToLocalStorage",
+  async (item, thunkAPI) => {
+    try {
+      const newNote = createNote({
+        ...item,
+        color: item.color,
+      });
+
+      return newNote;
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "알 수 없는 에러가 발생했습니다.";
+      console.error("pin 중 에러 발생:", message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
