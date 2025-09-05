@@ -13,6 +13,11 @@
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.27);
 }
 
+.note:hover {
+  box-shadow: 5px 5px 10px rgba(190, 190, 190, 0.7);
+  background-color: rgba(236, 230, 147, 0.493);
+}
+
 .note__title {
   display: flex;
   flex-direction: row;
@@ -33,7 +38,7 @@
 }
 
 .note__content {
-  background-color: aqua;
+  /* background-color: aqua; */
   /* height: 150px; */
   flex-wrap: wrap;
   flex-grow: 1;

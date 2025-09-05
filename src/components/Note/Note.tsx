@@ -4,24 +4,26 @@ import React from "react";
 import style from "./Note.module.css";
 
 import { useNavigate } from "react-router-dom";
+import type { Note, NoteProps } from "../../interfaces/types";
+import dateFormat from "../../utils/dateFormat";
 
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  color: string;
-  priority: string;
-  isPinned: boolean;
-  tag: string;
-  createDate: string;
-  updateDate: string;
-  isTrash: boolean;
-}
+// interface Note {
+//   id: string;
+//   title: string;
+//   content: string;
+//   color: string;
+//   priority: string;
+//   isPinned: boolean;
+//   tag: string;
+//   createDate: string;
+//   updateDate: string;
+//   isTrash: boolean;
+// }
 
-interface NoteProps {
-  key: string;
-  note: Note;
-}
+// interface NoteProps {
+//   key: string;
+//   note: Note;
+// }
 
 export default function Note({ key, note }: NoteProps) {
   // const navigate = useNavigate();
@@ -51,7 +53,7 @@ export default function Note({ key, note }: NoteProps) {
         <p>{note.tag}</p>
       </div>
       <div className={style.note__bottom}>
-        <p>{note.createDate}</p>
+        <p>{dateFormat(note.createDate)}</p>
         <div>
           <img src="/img/pencil.svg" alt="update" />
           <img src="/img/trash-can.svg" alt="delete" />

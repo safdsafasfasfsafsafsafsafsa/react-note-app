@@ -6,25 +6,25 @@ import {
   loadTagsFromLocalStorage,
   addNoteToLocalStorage,
 } from "../asyncThunks/localStorageThunk";
+import type { Note, Tags } from "../../interfaces/types";
 // import createNote from "../../utils/createNote";
 
-// 1. 메모 객체의 타입을 정의합니다.
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  color: string;
-  priority: string;
-  isPinned: boolean;
-  tag: string;
-  createDate: string;
-  updateDate: string;
-  isTrash: boolean;
-}
+// interface Note {
+//   id: string;
+//   title: string;
+//   content: string;
+//   color: string;
+//   priority: string;
+//   isPinned: boolean;
+//   tag: string;
+//   createDate: string;
+//   updateDate: string;
+//   isTrash: boolean;
+// }
 
-interface Tags {
-  tag: string;
-}
+// interface Tags {
+//   tag: string;
+// }
 
 // 2. slice의 상태 타입을 정의합니다.
 interface NoteState {

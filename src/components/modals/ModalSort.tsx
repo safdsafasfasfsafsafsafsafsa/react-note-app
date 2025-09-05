@@ -2,10 +2,11 @@
 
 import React from "react";
 import style from "./ModalSort.module.css";
+import type { ModalProps } from "../../interfaces/types";
 
-interface ModalProps {
-  onClose: () => void;
-}
+// interface ModalProps {
+//   onClose: () => void;
+// }
 
 export default function ModalSort({ onClose }: ModalProps) {
   const handleOverlayClick = (event: React.MouseEvent) => {

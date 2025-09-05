@@ -3,23 +3,24 @@ import style from "./Notes.module.css";
 import Note from "../../components/Note/Note";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+// import type { Note } from "../../interfaces/types";
 
 interface NotesProps {
   text: string;
 }
 
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  color: string;
-  priority: string;
-  isPinned: boolean;
-  tag: string;
-  createDate: string;
-  updateDate: string;
-  isTrash: boolean;
-}
+// interface Note {
+//   id: string;
+//   title: string;
+//   content: string;
+//   color: string;
+//   priority: string;
+//   isPinned: boolean;
+//   tag: string;
+//   createDate: string;
+//   updateDate: string;
+//   isTrash: boolean;
+// }
 
 export default function Notes({ text }: NotesProps) {
   const dispatch = useAppDispatch();

@@ -1,0 +1,35 @@
+// 1. 메모 객체의 타입을 정의합니다.
+export interface Note {
+  id: string;
+  title: string;
+  content: string;
+  color: string;
+  priority: string;
+  isPinned: boolean;
+  tag: string;
+  createDate: Date;
+  updateDate: Date;
+  isTrash: boolean;
+}
+
+export interface NoteProps {
+  key: string;
+  note: Note;
+}
+
+export interface NewNote {
+  newTitle: string;
+  newContent: string;
+  newColor: string;
+  newPriority: string;
+  // newTag: string;
+}
+
+// 모달 컴포넌트의 props 타입을 정의합니다.
+export interface ModalProps {
+  onClose: () => void;
+}
+
+export interface Tags {
+  tag: string;
+}

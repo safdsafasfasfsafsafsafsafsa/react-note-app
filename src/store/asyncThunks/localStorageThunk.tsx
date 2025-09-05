@@ -1,31 +1,32 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import type { Note, NewNote, Tags } from "../../interfaces/types";
 import createNote from "../../utils/createNote";
 
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  color: string;
-  priority: string;
-  isPinned: boolean;
-  tag: string;
-  createDate: string;
-  updateDate: string;
-  isTrash: boolean;
-}
+// interface Note {
+//   id: string;
+//   title: string;
+//   content: string;
+//   color: string;
+//   priority: string;
+//   isPinned: boolean;
+//   tag: string;
+//   createDate: string;
+//   updateDate: string;
+//   isTrash: boolean;
+// }
 
-interface Tags {
-  tag: string;
-}
+// interface Tags {
+//   tag: string;
+// }
 
-interface NewNote {
-  newTitle: string;
-  newContent: string;
-  newColor: string;
-  newPriority: string;
-  // newTag: string;
-}
+// interface NewNote {
+//   newTitle: string;
+//   newContent: string;
+//   newColor: string;
+//   newPriority: string;
+//   // newTag: string;
+// }
 
 // 시작 시 호출
 export const loadNotesFromLocalStorage = createAsyncThunk<Note[], void>(

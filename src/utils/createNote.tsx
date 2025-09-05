@@ -1,17 +1,18 @@
 import { v4 as uuidv4 } from "uuid";
+import type { Note } from "../interfaces/types";
 
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  color: string;
-  priority: string;
-  isPinned: boolean;
-  tag: string;
-  createDate: string;
-  updateDate: string;
-  isTrash: boolean;
-}
+// interface Note {
+//   id: string;
+//   title: string;
+//   content: string;
+//   color: string;
+//   priority: string;
+//   isPinned: boolean;
+//   tag: string;
+//   createDate: Date;
+//   updateDate: Date;
+//   isTrash: boolean;
+// }
 
 export default function createNote(noteData: Partial<Note>) {
   // export default function createNote() {
@@ -25,8 +26,8 @@ export default function createNote(noteData: Partial<Note>) {
     priority: "low",
     isPinned: false,
     tag: "",
-    createDate: new Date().toISOString(),
-    updateDate: "",
+    createDate: new Date(),
+    updateDate: new Date(),
     isTrash: false,
     ...noteData,
     // 전달된 데이터로 덮어쓰기

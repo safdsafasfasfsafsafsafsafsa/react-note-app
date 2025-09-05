@@ -11,19 +11,20 @@ import {
 } from "../../store/slices/modalSlice";
 import { addNoteToLocalStorage } from "../../store/asyncThunks/localStorageThunk";
 import ModalTag from "../../components/modals/ModalTag";
+import type { ModalProps, NewNote } from "../../interfaces/types";
 
 // 모달 컴포넌트의 props 타입을 정의합니다.
-interface ModalProps {
-  onClose: () => void;
-}
+// interface ModalProps {
+//   onClose: () => void;
+// }
 
-interface NewNote {
-  newTitle: string;
-  newContent: string;
-  newColor: string;
-  newPriority: string;
-  // newTag: string;
-}
+// interface NewNote {
+//   newTitle: string;
+//   newContent: string;
+//   newColor: string;
+//   newPriority: string;
+//   // newTag: string;
+// }
 
 export default function ModalNote({ onClose }: ModalProps) {
   const dispatch = useAppDispatch();

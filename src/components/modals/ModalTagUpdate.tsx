@@ -1,9 +1,10 @@
 import React from "react";
 import style from "./ModalTag.module.css";
+import type { ModalProps } from "../../interfaces/types";
 
-interface ModalProps {
-  onClose: () => void;
-}
+// interface ModalProps {
+//   onClose: () => void;
+// }
 
 export default function ModalTagUpdate({ onClose }: ModalProps) {
   const handleOverlayClick = (event: React.MouseEvent) => {
