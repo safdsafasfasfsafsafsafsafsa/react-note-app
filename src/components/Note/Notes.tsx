@@ -10,15 +10,17 @@ export default function Notes({ text, isPinnedCheck }: NotesProps) {
 
   const { prodNotes } = useAppSelector((state) => state.main);
 
+  const pinnedNotes = prodNotes.filter((note) => note.isPinned);
+
   return (
     <div className={style.notes}>
       <p>{text}</p>
       {isPinnedCheck ? (
         /* 노트 컴포넌트 map, isPinned:true만 + 우선순위 high 우선 호출 */
         <div className={style.noteholder}>
-          {prodNotes.map((note) =>
-            note.isPinned ? <Note key={note.id} note={note} /> : <></>
-          )}
+          {pinnedNotes.map((note) => (
+            <Note key={note.id} note={note} />
+          ))}
         </div>
       ) : (
         /* 노트 컴포넌트 map, 우선순위 high 우선 호출 */

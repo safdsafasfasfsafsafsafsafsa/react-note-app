@@ -45,8 +45,8 @@ const mainSlice = createSlice({
           // 로컬 스토리지는 자동 string 변환 -> 꺼낼 때 다시 Date 변환해야
           const parsedNotes = action.payload.map((note) => ({
             ...note,
-            createDate: new Date(note.createDate),
-            updateDate: new Date(note.updateDate),
+            createDate: note.createDate,
+            updateDate: note.updateDate,
           }));
 
           state.status = "succeeded";
@@ -64,8 +64,8 @@ const mainSlice = createSlice({
         (state, action: PayloadAction<Note[]>) => {
           const parsedNotes = action.payload.map((note) => ({
             ...note,
-            createDate: new Date(note.createDate),
-            updateDate: new Date(note.updateDate),
+            createDate: note.createDate,
+            updateDate: note.updateDate,
           }));
 
           state.status = "succeeded";

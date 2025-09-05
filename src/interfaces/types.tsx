@@ -7,8 +7,8 @@ export interface Note {
   priority: string;
   isPinned: boolean;
   tag: string;
-  createDate: Date;
-  updateDate: Date;
+  createDate: string;
+  updateDate: string;
   isTrash: boolean;
 }
 

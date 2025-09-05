@@ -25,7 +25,7 @@ export default function Note({ note }: NoteProps) {
 
   // 지역 변환: yyyy/mm/dd hh:mm:ss
   const [currentNote, setCurrentNote] = useState<Note>(note);
-  const dateForNote = dateFormat(currentNote.createDate);
+  const dateForNote = dateFormat(new Date(currentNote.createDate));
 
   return (
     <div

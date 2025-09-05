@@ -13,8 +13,8 @@ export default function createNote(noteData: Partial<Note>) {
     priority: "low",
     isPinned: false,
     tag: "",
-    createDate: new Date(),
-    updateDate: new Date(),
+    createDate: new Date().toISOString(),
+    updateDate: new Date().toISOString(),
     isTrash: false,
     ...noteData,
     // 전달된 데이터로 덮어쓰기
