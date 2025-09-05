@@ -9,7 +9,7 @@ import {
   closeModalTag,
   closeModalNote,
 } from "../../store/slices/modalSlice";
-import { addNoteToLocalStorage } from "../../store/asyncThunks/localStorageThunk";
+import { addNoteToLocalStorage } from "../../store/asyncThunks/noteThunk";
 import ModalTag from "../../components/modals/ModalTag";
 import type { ModalProps, NewNote } from "../../interfaces/types";
 

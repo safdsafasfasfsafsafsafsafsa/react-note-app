@@ -9,10 +9,8 @@ import {
   openModalSort,
   closeModalSort,
 } from "../../store/slices/modalSlice";
-// import { openModalTop, closeModalTop } from "../../store/slices/modalTopSlice";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import createNote from "../../utils/createNote";
 import ModalNote from "../../components/modals/ModalNote";
 import ModalTag from "../../components/modals/ModalTag";
 import ModalSort from "../../components/modals/ModalSort";
@@ -24,8 +22,6 @@ export default function NotePage() {
   const { isNoteOpen, isTagOpen, isSortOpen } = useAppSelector(
     (state) => state.modal
   );
-
-  // const myNote = createNote({ title: "TypeScript 학습" });
 
   const handleModalNote = () => {
     if (!isNoteOpen) {
@@ -58,8 +54,14 @@ export default function NotePage() {
             <input type="text" placeholder="노트의 제목을 입력해주세요" />
             <button onClick={handleModalSort}>정렬</button>
           </div>
-          <Notes text={`Pinned Notes (${prodNotes.length})`} />
-          <Notes text={`All Notes (${prodNotes.length})`} />
+          <Notes
+            text={`Pinned Notes (${prodNotes.length})`}
+            isPinnedCheck={true}
+          />
+          <Notes
+            text={`All Notes (${prodNotes.length})`}
+            isPinnedCheck={false}
+          />
         </div>
       </div>
       {isNoteOpen && <ModalNote onClose={() => dispatch(closeModalNote())} />}

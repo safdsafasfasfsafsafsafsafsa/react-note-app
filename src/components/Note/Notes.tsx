@@ -3,13 +3,14 @@ import style from "./Notes.module.css";
 import Note from "../../components/Note/Note";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-// import type { Note } from "../../interfaces/types";
+import type { NotesProps } from "../../interfaces/types";
 
-interface NotesProps {
-  text: string;
-}
+// interface NotesProps {
+//   text: string;
+//   isPinnedCheck: boolean;
+// }
 
-export default function Notes({ text }: NotesProps) {
+export default function Notes({ text, isPinnedCheck }: NotesProps) {
   const dispatch = useAppDispatch();
 
   const { prodNotes } = useAppSelector((state) => state.main);
@@ -17,13 +18,21 @@ export default function Notes({ text }: NotesProps) {
   return (
     <div className={style.notes}>
       <p>{text}</p>
-      {/* 노트 컴포넌트 map, isPinned:true만 호출 */}
-      {/* 노트 컴포넌트 map, 우선순위 high 우선 호출 */}
-      <div className={style.noteholder}>
-        {prodNotes.map((note) => (
-          <Note key={note.id} note={note} />
-        ))}
-      </div>
+      {isPinnedCheck ? (
+        /* 노트 컴포넌트 map, isPinned:true만 + 우선순위 high 우선 호출 */
+        <div className={style.noteholder}>
+          {prodNotes.map((note) => (
+            <Note key={note.id} note={note} />
+          ))}
+        </div>
+      ) : (
+        /* 노트 컴포넌트 map, 우선순위 high 우선 호출 */
+        <div className={style.noteholder}>
+          {prodNotes.map((note) => (
+            <Note key={note.id} note={note} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

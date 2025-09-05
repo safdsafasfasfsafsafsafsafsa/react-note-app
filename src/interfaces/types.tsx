@@ -25,6 +25,11 @@ export interface NewNote {
   // newTag: string;
 }
 
+export interface NotesProps {
+  text: string;
+  isPinnedCheck: boolean;
+}
+
 // 모달 컴포넌트의 props 타입을 정의합니다.
 export interface ModalProps {
   onClose: () => void;

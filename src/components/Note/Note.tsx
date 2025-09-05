@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import style from "./Note.module.css";
 
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { updatePinToLocalStorage } from "../../store/asyncThunks/noteThunk";
 import type { Note, NoteProps } from "../../interfaces/types";
 import dateFormat from "../../utils/dateFormat";
 
@@ -14,7 +16,14 @@ export default function Note({ note }: NoteProps) {
   //   navigate(`/tag/${tagName}`);
   // };
 
-  // yyyy/mm/dd hh:mm:ss
+  const dispatch = useAppDispatch();
+
+  // isPinned 변환
+  const handleIsPinned = (note: Note) => {
+    dispatch(updatePinToLocalStorage(note));
+  };
+
+  // 지역 변환: yyyy/mm/dd hh:mm:ss
   const [currentNote, setCurrentNote] = useState<Note>(note);
   const dateForNote = dateFormat(currentNote.createDate);
 
@@ -25,9 +34,17 @@ export default function Note({ note }: NoteProps) {
         <div>
           <p>{note.priority}</p>
           {note.isPinned ? (
-            <img src="/img/pin.svg" alt="pin" />
+            <img
+              onClick={() => handleIsPinned(currentNote)}
+              src="/img/pin.svg"
+              alt="pin"
+            />
           ) : (
-            <img src="/img/pin_empty.svg" alt="pin" />
+            <img
+              onClick={() => handleIsPinned(currentNote)}
+              src="/img/pin_empty.svg"
+              alt="pin"
+            />
           )}
         </div>
       </div>

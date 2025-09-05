@@ -4,8 +4,12 @@ import {
   loadNotesFromLocalStorage,
   loadProdNotesFromLocalStorage,
   loadTagsFromLocalStorage,
-  addNoteToLocalStorage,
+  // addNoteToLocalStorage,
 } from "../asyncThunks/localStorageThunk";
+import {
+  addNoteToLocalStorage,
+  updatePinToLocalStorage,
+} from "../asyncThunks/noteThunk";
 import type { Note, Tags } from "../../interfaces/types";
 
 // 2. slice의 상태 타입을 정의합니다.
@@ -92,7 +96,7 @@ const mainSlice = createSlice({
       .addCase(loadTagsFromLocalStorage.rejected, (state) => {
         state.status = "failed";
       })
-      // 노트 업로드
+      // 추가: 노트 업로드
       .addCase(addNoteToLocalStorage.pending, (state) => {
         state.status = "loading";
       })
@@ -108,6 +112,39 @@ const mainSlice = createSlice({
         }
       )
       .addCase(addNoteToLocalStorage.rejected, (state) => {
+        state.status = "failed";
+      })
+      // 수정: isPinned 변환
+      .addCase(updatePinToLocalStorage.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        updatePinToLocalStorage.fulfilled,
+        (state, action: PayloadAction<Note>) => {
+          state.status = "succeeded";
+          const updatedNote = action.payload;
+
+          // ✅ notes 배열에서 해당 노트 찾아서 isPinned 속성만 업데이트
+          const noteIndex = state.notes.findIndex(
+            (note) => note.id === updatedNote.id
+          );
+          if (noteIndex !== -1) {
+            state.notes[noteIndex].isPinned = updatedNote.isPinned;
+          }
+
+          // ✅ prodNotes 배열에서 해당 노트 찾아서 isPinned 속성만 업데이트
+          const prodNoteIndex = state.prodNotes.findIndex(
+            (note) => note.id === updatedNote.id
+          );
+          if (prodNoteIndex !== -1) {
+            state.prodNotes[prodNoteIndex].isPinned = updatedNote.isPinned;
+          }
+
+          localStorage.setItem("notes", JSON.stringify(state.notes));
+          localStorage.setItem("prodNotes", JSON.stringify(state.prodNotes));
+        }
+      )
+      .addCase(updatePinToLocalStorage.rejected, (state) => {
         state.status = "failed";
       });
   },
