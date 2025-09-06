@@ -2,15 +2,18 @@
 
 import React, { useState } from "react";
 import style from "./Note.module.css";
-
 import { useNavigate } from "react-router-dom";
+
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { updatePinToLocalStorage } from "../../store/asyncThunks/noteThunk";
 import {
   openModalNoteUpdate,
   closeModalNoteUpdate,
 } from "../../store/slices/modalSlice";
+import { noteIdUpdate } from "../../store/slices/noteUpdateSlice";
+
 import type { Note, NoteProps } from "../../interfaces/types";
+
 import dateFormat from "../../utils/dateFormat";
 import { truncateText } from "../../utils/truncateText";
 import ModalNoteUpdate from "../modals/ModalNoteUpdate";
@@ -26,8 +29,18 @@ export default function Note({ note }: NoteProps) {
 
   const { isNoteOpenUpdate } = useAppSelector((state) => state.modal);
 
-  const handleModalNote = () => {
+  // 부모 컴포넌트(예: NoteForm)
+  // const [editingNote, setEditingNote] = useState<Note | null>(null);
+
+  // 수정 버튼을 클릭했을 때 이 함수를 호출하여 editingNote 상태를 설정합니다.
+  //   const handleEditingNote = (note: Note) => {
+  //   setEditingNote(note);
+  // };
+
+  // 모달 열기: 현 노트의 상태 이월
+  const handleModalNoteUpdate = () => {
     if (!isNoteOpenUpdate) {
+      dispatch(noteIdUpdate(note.id));
       dispatch(openModalNoteUpdate());
     }
   };
@@ -81,16 +94,17 @@ export default function Note({ note }: NoteProps) {
         <div className={style.note__bottom}>
           <p>{dateForNote}</p>
           <div>
-            <img onClick={handleModalNote} src="/img/pencil.svg" alt="update" />
+            <img
+              onClick={handleModalNoteUpdate}
+              src="/img/pencil.svg"
+              alt="update"
+            />
             <img src="/img/trash-can.svg" alt="delete" />
           </div>
         </div>
       </div>
       {isNoteOpenUpdate && (
-        <ModalNoteUpdate
-          noteId={note.id}
-          onClose={() => dispatch(closeModalNoteUpdate())}
-        />
+        <ModalNoteUpdate onClose={() => dispatch(closeModalNoteUpdate())} />
       )}
     </>
   );

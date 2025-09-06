@@ -4,25 +4,33 @@ import "react-quill-new/dist/quill.snow.css";
 import style from "./ModalNote.module.css";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import ModalTag from "./ModalTag";
+
 import {
   openModalTag,
   closeModalTag,
-  closeModalNote,
+  closeModalNoteUpdate,
 } from "../../store/slices/modalSlice";
+import { noteIdUpdate } from "../../store/slices/noteUpdateSlice";
 import { updateNoteToLocalStorage } from "../../store/asyncThunks/noteThunk";
-import ModalTag from "./ModalTag";
-import type { ModalIdProps, Note, NewNote } from "../../interfaces/types";
+
+import type { ModalProps, Note, NewNote } from "../../interfaces/types";
 
 // note.id를 props 해서 초기값 받아오기
-export default function ModalNoteUpdate({ noteId, onClose }: ModalIdProps) {
+export default function ModalNoteUpdate({ onClose }: ModalProps) {
   const dispatch = useAppDispatch();
 
   const { id, notes, prodNotes, tags, status } = useAppSelector(
     (state) => state.main
   );
   const { isTagOpen } = useAppSelector((state) => state.modal);
+  const { noteId } = useAppSelector((state) => state.noteUpdate);
 
-  // 현 위치 객체 불러오기
+  // // 현 위치 객체 불러오기
+  // const [noteIndex, setNoteIndex] = useState<number>(
+  //   // prodNotes.findIndex((note) => note.id === noteId)
+  //   0
+  // );
   const noteIndex = prodNotes.findIndex((note) => note.id === noteId);
 
   // 보낼 내용, 초기값은 원래 객체에서 받아오기
@@ -49,6 +57,7 @@ export default function ModalNoteUpdate({ noteId, onClose }: ModalIdProps) {
   // 버블링 방지
   const handleOverlayClick = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
+      dispatch(noteIdUpdate("")); // 종료 시 초기화
       onClose();
     }
   };
@@ -99,11 +108,12 @@ export default function ModalNoteUpdate({ noteId, onClose }: ModalIdProps) {
 
     // 성공 시 초기화,
     if (status === "succeeded") {
+      dispatch(noteIdUpdate("")); // 종료 시 초기화
       setTitleValue("");
       setEditerValue("");
       setSelectedColor("white");
       setSelectedPriority("low");
-      dispatch(closeModalNote());
+      dispatch(closeModalNoteUpdate());
     }
   };
 

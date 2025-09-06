@@ -162,7 +162,7 @@ const mainSlice = createSlice({
             (note) => note.id === updatedNote.id
           );
           if (prodNoteIndex !== -1) {
-            state.notes[prodNoteIndex] = updatedNote;
+            state.prodNotes[prodNoteIndex] = updatedNote;
           }
 
           localStorage.setItem("notes", JSON.stringify(state.notes));

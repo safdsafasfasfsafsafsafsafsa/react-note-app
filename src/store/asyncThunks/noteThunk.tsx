@@ -60,6 +60,10 @@ export const updateNoteToLocalStorage = createAsyncThunk<Note, Note>(
       // ✅ 1. 로컬 스토리지에서 기존 노트 배열을 불러옵니다.
       const storedNotes = localStorage.getItem("notes");
       const notes: Note[] = storedNotes ? JSON.parse(storedNotes) : [];
+      const storedProdNotes = localStorage.getItem("prodNotes");
+      const prodNotes: Note[] = storedProdNotes
+        ? JSON.parse(storedProdNotes)
+        : [];
 
       // ✅ 2. 업데이트할 노트의 인덱스를 찾습니다.
       const noteIndex = notes.findIndex((note) => note.id === item.id);
@@ -67,9 +71,11 @@ export const updateNoteToLocalStorage = createAsyncThunk<Note, Note>(
       if (noteIndex !== -1) {
         // ✅ 3. 기존 노트를 새로운 데이터로 갱신합니다.
         notes[noteIndex] = item;
+        prodNotes[noteIndex] = item;
 
         // ✅ 4. 갱신된 배열을 로컬 스토리지에 다시 저장합니다.
         localStorage.setItem("notes", JSON.stringify(notes));
+        localStorage.setItem("prodNotes", JSON.stringify(prodNotes));
 
         // ✅ 5. 업데이트된 노트 객체를 extraReducer로 반환합니다.
         return item;
