@@ -27,31 +27,31 @@ export default function Notes({ text, isPinnedCheck }: INotesProps) {
     );
   }, [prodNotes, searchTitle]);
 
+  // switch는 변수 스코프가 없어 let으로 외부 접근해야
   let sortedNotes = [...searchTitleToNotes]; // 복사본 생성
 
   switch (sortOption) {
     case "high": {
-      sortedNotes = sortByPriorityHigh(prodNotes);
+      sortedNotes = sortByPriorityHigh(sortedNotes);
       break;
     }
     case "low": {
-      sortedNotes = sortByPriorityLow(prodNotes);
+      sortedNotes = sortByPriorityLow(sortedNotes);
       break;
     }
     case "latest": {
-      sortedNotes = sortByLatestDate(prodNotes);
+      sortedNotes = sortByLatestDate(sortedNotes);
       break;
     }
     case "created": {
-      sortedNotes = sortByCreatedDate(prodNotes);
+      sortedNotes = sortByCreatedDate(sortedNotes);
       break;
     }
     case "edited": {
-      sortedNotes = sortByEditedDate(prodNotes);
+      sortedNotes = sortByEditedDate(sortedNotes);
       break;
     }
     default: {
-      sortedNotes = prodNotes;
       break;
     }
   }
