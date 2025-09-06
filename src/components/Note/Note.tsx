@@ -12,13 +12,13 @@ import {
 } from "../../store/slices/modalSlice";
 import { noteIdUpdate } from "../../store/slices/noteUpdateSlice";
 
-import type { Note, NoteProps } from "../../interfaces/types";
+import type { INote, INoteProps } from "../../interfaces/types";
 
 import dateFormat from "../../utils/dateFormat";
 import { truncateText } from "../../utils/truncateText";
 import ModalNoteUpdate from "../modals/ModalNoteUpdate";
 
-export default function Note({ note }: NoteProps) {
+export default function Note({ note }: INoteProps) {
   // const navigate = useNavigate();
 
   // const handleNav = (tagName: string) => {
@@ -46,7 +46,7 @@ export default function Note({ note }: NoteProps) {
   };
 
   // isPinned 변환
-  const handleIsPinned = (note: Note) => {
+  const handleIsPinned = (note: INote) => {
     dispatch(updatePinToLocalStorage(note));
   };
 
@@ -55,7 +55,7 @@ export default function Note({ note }: NoteProps) {
   const trunContext = truncateText(note.content, 160);
 
   // 지역 변환: yyyy/mm/dd hh:mm:ss
-  const [currentNote, setCurrentNote] = useState<Note>(note);
+  const [currentNote, setCurrentNote] = useState<INote>(note);
   const dateForNote = dateFormat(new Date(currentNote.createDate));
 
   return (

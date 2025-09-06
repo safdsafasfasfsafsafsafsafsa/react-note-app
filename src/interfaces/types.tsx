@@ -1,5 +1,5 @@
 // 1. 메모 객체의 타입을 정의합니다.
-export interface Note {
+export interface INote {
   id: string;
   title: string;
   content: string;
@@ -12,12 +12,12 @@ export interface Note {
   isTrash: boolean;
 }
 
-export interface NoteProps {
+export interface INoteProps {
   key: string;
-  note: Note;
+  note: INote;
 }
 
-export interface NewNote {
+export interface INewNote {
   newTitle: string;
   newContent: string;
   newColor: string;
@@ -25,22 +25,16 @@ export interface NewNote {
   // newTag: string;
 }
 
-export interface NotesProps {
+export interface INotesProps {
   text: string;
   isPinnedCheck: boolean;
 }
 
 // 모달 컴포넌트의 props 타입을 정의합니다.
-export interface ModalProps {
+export interface IModalProps {
   onClose: () => void;
 }
 
-// Note 전체 수정에서 id로 초기값 불러올 때
-// export interface ModalIdProps {
-//   noteId: string;
-//   onClose: () => void;
-// }
-
-export interface Tags {
+export interface ITags {
   tag: string;
 }

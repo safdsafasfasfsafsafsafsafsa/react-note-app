@@ -1,9 +1,9 @@
-import type { Note } from "../interfaces/types";
+import type { INote } from "../interfaces/types";
 
 // Notes 컴포넌트에서 정렬
 
 // high 우선
-export function sortByPriorityHigh(notes: Note[]): Note[] {
+export function sortByPriorityHigh(notes: INote[]): INote[] {
   // 배열의 복사본을 만들어 원본 배열을 수정하지 않습니다.
   const sortedNotes = [...notes];
 
@@ -23,7 +23,7 @@ export function sortByPriorityHigh(notes: Note[]): Note[] {
 }
 
 // low 우선
-export function sortByPriorityLow(notes: Note[]): Note[] {
+export function sortByPriorityLow(notes: INote[]): INote[] {
   const sortedNotes = [...notes];
 
   sortedNotes.sort((a, b) => {
@@ -40,7 +40,7 @@ export function sortByPriorityLow(notes: Note[]): Note[] {
 }
 
 // 최신순
-export function sortByLatestDate(notes: Note[]): Note[] {
+export function sortByLatestDate(notes: INote[]): INote[] {
   // 배열의 복사본을 만들어 원본 배열을 수정하지 않습니다.
   const sortedNotes = [...notes];
 
@@ -56,7 +56,7 @@ export function sortByLatestDate(notes: Note[]): Note[] {
 }
 
 // 작성순
-export function sortByCreatedDate(notes: Note[]): Note[] {
+export function sortByCreatedDate(notes: INote[]): INote[] {
   const sortedNotes = [...notes];
 
   sortedNotes.sort((a, b) => {
@@ -70,7 +70,7 @@ export function sortByCreatedDate(notes: Note[]): Note[] {
 }
 
 // 최신 수정
-export function sortByEditedDate(notes: Note[]): Note[] {
+export function sortByEditedDate(notes: INote[]): INote[] {
   const sortedNotes = [...notes];
 
   sortedNotes.sort((a, b) => {

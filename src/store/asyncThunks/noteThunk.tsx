@@ -1,10 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import type { Note, NotesProps, NewNote, Tags } from "../../interfaces/types";
+import type {
+  INote,
+  INotesProps,
+  INewNote,
+  ITags,
+} from "../../interfaces/types";
 import createNote from "../../utils/createNote";
 
 // 추가: 새 노트 작성
-export const addNoteToLocalStorage = createAsyncThunk<Note, NewNote>(
+export const addNoteToLocalStorage = createAsyncThunk<INote, INewNote>(
   "notes/addNoteToLocalStorage",
   async (item, thunkAPI) => {
     try {
@@ -30,7 +35,7 @@ export const addNoteToLocalStorage = createAsyncThunk<Note, NewNote>(
 
 // 수정: isPinned 체크
 // 디스패치 실행 -> 그걸로 로컬에서 찾기 -> 갱신 후 boolean 변경
-export const updatePinToLocalStorage = createAsyncThunk<Note, Note>(
+export const updatePinToLocalStorage = createAsyncThunk<INote, INote>(
   "notes/updatePinToLocalStorage",
   async (item, thunkAPI) => {
     try {
@@ -53,15 +58,15 @@ export const updatePinToLocalStorage = createAsyncThunk<Note, Note>(
 
 // 수정: 노트 객체
 // Note 수정 버튼 클릭해 ModalNote 나오면 수정 가능하도록
-export const updateNoteToLocalStorage = createAsyncThunk<Note, Note>(
+export const updateNoteToLocalStorage = createAsyncThunk<INote, INote>(
   "notes/updateNoteToLocalStorage",
   async (item, thunkAPI) => {
     try {
       // ✅ 1. 로컬 스토리지에서 기존 노트 배열을 불러옵니다.
       const storedNotes = localStorage.getItem("notes");
-      const notes: Note[] = storedNotes ? JSON.parse(storedNotes) : [];
+      const notes: INote[] = storedNotes ? JSON.parse(storedNotes) : [];
       const storedProdNotes = localStorage.getItem("prodNotes");
-      const prodNotes: Note[] = storedProdNotes
+      const prodNotes: INote[] = storedProdNotes
         ? JSON.parse(storedProdNotes)
         : [];
 

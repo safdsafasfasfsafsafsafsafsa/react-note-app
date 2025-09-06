@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 // import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface Modal {
+interface IModal {
   isNoteOpen: boolean;
   isNoteOpenUpdate: boolean;
   isTagOpen: boolean;
   isSortOpen: boolean;
 }
 
-const initialState: Modal = {
+const initialState: IModal = {
   isNoteOpen: false,
   isNoteOpenUpdate: false,
   isTagOpen: false,

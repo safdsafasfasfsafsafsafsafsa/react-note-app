@@ -4,9 +4,9 @@ import React from "react";
 import style from "./ModalSort.module.css";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { sortChange } from "../../store/slices/sortSlice";
-import type { ModalProps } from "../../interfaces/types";
+import type { IModalProps } from "../../interfaces/types";
 
-export default function ModalSort({ onClose }: ModalProps) {
+export default function ModalSort({ onClose }: IModalProps) {
   const dispatch = useAppDispatch();
 
   const { sortOption } = useAppSelector((state) => state.sort);

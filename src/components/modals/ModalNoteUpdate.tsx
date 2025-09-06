@@ -14,10 +14,10 @@ import {
 import { noteIdUpdate } from "../../store/slices/noteUpdateSlice";
 import { updateNoteToLocalStorage } from "../../store/asyncThunks/noteThunk";
 
-import type { ModalProps, Note, NewNote } from "../../interfaces/types";
+import type { IModalProps, INote, INewNote } from "../../interfaces/types";
 
 // note.id를 props 해서 초기값 받아오기
-export default function ModalNoteUpdate({ onClose }: ModalProps) {
+export default function ModalNoteUpdate({ onClose }: IModalProps) {
   const dispatch = useAppDispatch();
 
   const { id, notes, prodNotes, tags, status } = useAppSelector(
@@ -91,10 +91,10 @@ export default function ModalNoteUpdate({ onClose }: ModalProps) {
     newContent,
     newColor,
     newPriority,
-  }: NewNote) => {
+  }: INewNote) => {
     // 기존 노트가 존재한다면 실행
     if (prodNotes[noteIndex]) {
-      const updateNote: Note = {
+      const updateNote: INote = {
         ...prodNotes[noteIndex], // 기존 속성들을 복사
         title: newTitle,
         content: newContent,

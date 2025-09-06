@@ -1,8 +1,8 @@
 import React from "react";
 import style from "./ModalTag.module.css";
-import type { ModalProps } from "../../interfaces/types";
+import type { IModalProps } from "../../interfaces/types";
 
-export default function ModalTag({ onClose }: ModalProps) {
+export default function ModalTag({ onClose }: IModalProps) {
   const handleOverlayClick = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
       onClose();

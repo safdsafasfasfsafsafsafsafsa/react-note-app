@@ -10,17 +10,17 @@ import {
   updatePinToLocalStorage,
   updateNoteToLocalStorage,
 } from "../asyncThunks/noteThunk";
-import type { Note, Tags } from "../../interfaces/types";
+import type { INote, ITags } from "../../interfaces/types";
 
 // 2. slice의 상태 타입을 정의합니다.
-interface NoteState {
-  notes: Note[];
-  prodNotes: Note[];
-  tags: Tags[];
+interface INoteState {
+  notes: INote[];
+  prodNotes: INote[];
+  tags: ITags[];
   status: "idle" | "loading" | "succeeded" | "failed";
 }
 
-const initialState: NoteState = {
+const initialState: INoteState = {
   notes: [],
   prodNotes: [],
   tags: [],
@@ -40,7 +40,7 @@ const mainSlice = createSlice({
       })
       .addCase(
         loadNotesFromLocalStorage.fulfilled,
-        (state, action: PayloadAction<Note[]>) => {
+        (state, action: PayloadAction<INote[]>) => {
           // ✅ 로컬 스토리지에서 불러온 노트 배열을 순회하며 날짜를 Date 객체로 변환
           // 로컬 스토리지는 자동 string 변환 -> 꺼낼 때 다시 Date 변환해야
           const parsedNotes = action.payload.map((note) => ({
@@ -61,7 +61,7 @@ const mainSlice = createSlice({
       })
       .addCase(
         loadProdNotesFromLocalStorage.fulfilled,
-        (state, action: PayloadAction<Note[]>) => {
+        (state, action: PayloadAction<INote[]>) => {
           const parsedNotes = action.payload.map((note) => ({
             ...note,
             createDate: note.createDate,
@@ -80,7 +80,7 @@ const mainSlice = createSlice({
       })
       .addCase(
         loadTagsFromLocalStorage.fulfilled,
-        (state, action: PayloadAction<Tags[]>) => {
+        (state, action: PayloadAction<ITags[]>) => {
           state.status = "succeeded";
           state.tags = action.payload;
         }
@@ -94,7 +94,7 @@ const mainSlice = createSlice({
       })
       .addCase(
         addNoteToLocalStorage.fulfilled,
-        (state, action: PayloadAction<Note>) => {
+        (state, action: PayloadAction<INote>) => {
           state.status = "succeeded";
           state.notes.push(action.payload);
           state.prodNotes.push(action.payload);
@@ -112,7 +112,7 @@ const mainSlice = createSlice({
       })
       .addCase(
         updatePinToLocalStorage.fulfilled,
-        (state, action: PayloadAction<Note>) => {
+        (state, action: PayloadAction<INote>) => {
           state.status = "succeeded";
           const updatedNote = action.payload;
 
@@ -145,7 +145,7 @@ const mainSlice = createSlice({
       })
       .addCase(
         updateNoteToLocalStorage.fulfilled,
-        (state, action: PayloadAction<Note>) => {
+        (state, action: PayloadAction<INote>) => {
           state.status = "succeeded";
           const updatedNote = action.payload;
 

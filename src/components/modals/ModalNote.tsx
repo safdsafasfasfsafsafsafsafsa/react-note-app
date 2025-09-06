@@ -11,9 +11,9 @@ import {
 } from "../../store/slices/modalSlice";
 import { addNoteToLocalStorage } from "../../store/asyncThunks/noteThunk";
 import ModalTag from "../../components/modals/ModalTag";
-import type { ModalProps, NewNote } from "../../interfaces/types";
+import type { IModalProps, INewNote } from "../../interfaces/types";
 
-export default function ModalNote({ onClose }: ModalProps) {
+export default function ModalNote({ onClose }: IModalProps) {
   const dispatch = useAppDispatch();
 
   const { notes, prodNotes, tags, status } = useAppSelector(
@@ -65,7 +65,7 @@ export default function ModalNote({ onClose }: ModalProps) {
     newColor,
     newPriority,
   }: // newTag,
-  NewNote) => {
+  INewNote) => {
     dispatch(
       addNoteToLocalStorage({ newTitle, newContent, newColor, newPriority })
     );

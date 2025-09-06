@@ -3,7 +3,7 @@ import style from "./Notes.module.css";
 import Note from "../../components/Note/Note";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import type { NotesProps } from "../../interfaces/types";
+import type { INotesProps } from "../../interfaces/types";
 import {
   sortByPriorityHigh,
   sortByPriorityLow,
@@ -12,7 +12,7 @@ import {
   sortByEditedDate,
 } from "../../utils/sortOperation";
 
-export default function Notes({ text, isPinnedCheck }: NotesProps) {
+export default function Notes({ text, isPinnedCheck }: INotesProps) {
   const { prodNotes } = useAppSelector((state) => state.main);
   const { sortOption } = useAppSelector((state) => state.sort);
   let sortedNote = [];
