@@ -27,6 +27,7 @@ export default function ModalNote({ onClose }: IModalProps) {
   const [selectedColor, setSelectedColor] = useState<string>("white");
   const [selectedPriority, setSelectedPriority] = useState<string>("low");
 
+  // 버블링 방지
   const handleOverlayClick = (event: React.MouseEvent) => {
     // 이벤트가 발생한 요소가 modal-overlay인지 확인합니다.
     // 이렇게 하면 modal-content를 클릭했을 때 닫히는 것을 방지할 수 있습니다.

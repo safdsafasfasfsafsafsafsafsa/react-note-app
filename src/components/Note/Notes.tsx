@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import style from "./Notes.module.css";
 import Note from "../../components/Note/Note";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import type { INotesProps } from "../../interfaces/types";
+import type { INote, INotesProps } from "../../interfaces/types";
 import {
   sortByPriorityHigh,
   sortByPriorityLow,
@@ -11,40 +11,52 @@ import {
   sortByCreatedDate,
   sortByEditedDate,
 } from "../../utils/sortOperation";
+import { setSearchTitle } from "../../store/slices/sortSlice";
 
 export default function Notes({ text, isPinnedCheck }: INotesProps) {
   const { prodNotes } = useAppSelector((state) => state.main);
-  const { sortOption } = useAppSelector((state) => state.sort);
-  let sortedNote = [];
+  const { sortOption, searchTitle } = useAppSelector((state) => state.sort);
+
+  // 검색: input text -> searchTitle -> Notes에서 map
+  const searchTitleToNotes: INote[] = useMemo(() => {
+    if (!searchTitle) {
+      return prodNotes;
+    }
+    return prodNotes.filter((note) =>
+      note.title.toLowerCase().includes(searchTitle.toLowerCase())
+    );
+  }, [prodNotes, searchTitle]);
+
+  let sortedNotes = [...searchTitleToNotes]; // 복사본 생성
 
   switch (sortOption) {
     case "high": {
-      sortedNote = sortByPriorityHigh(prodNotes);
+      sortedNotes = sortByPriorityHigh(prodNotes);
       break;
     }
     case "low": {
-      sortedNote = sortByPriorityLow(prodNotes);
+      sortedNotes = sortByPriorityLow(prodNotes);
       break;
     }
     case "latest": {
-      sortedNote = sortByLatestDate(prodNotes);
+      sortedNotes = sortByLatestDate(prodNotes);
       break;
     }
     case "created": {
-      sortedNote = sortByCreatedDate(prodNotes);
+      sortedNotes = sortByCreatedDate(prodNotes);
       break;
     }
     case "edited": {
-      sortedNote = sortByEditedDate(prodNotes);
+      sortedNotes = sortByEditedDate(prodNotes);
       break;
     }
     default: {
-      sortedNote = prodNotes;
+      sortedNotes = prodNotes;
       break;
     }
   }
 
-  const pinnedNotes = sortedNote.filter((note) => note.isPinned);
+  const pinnedNotes = sortedNotes.filter((note) => note.isPinned);
 
   return (
     <div className={style.notes}>
@@ -59,7 +71,7 @@ export default function Notes({ text, isPinnedCheck }: INotesProps) {
       ) : (
         /* 노트 컴포넌트 map, 우선순위 high 우선 호출 */
         <div className={style.noteholder}>
-          {sortedNote.map((note) => (
+          {sortedNotes.map((note) => (
             <Note key={note.id} note={note} />
           ))}
         </div>

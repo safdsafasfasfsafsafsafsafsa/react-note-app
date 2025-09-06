@@ -1,4 +1,6 @@
-import React from "react";
+// https://highero.tistory.com/entry/useMemo%EB%A5%BC-%EC%95%8C%EC%95%84%EB%B4%85%EC%8B%9C%EB%8B%A4-Feat-%EC%98%88%EC%A0%9C
+
+import React, { useMemo } from "react";
 import style from "../../styles/page.module.css";
 import Notes from "../../components/Note/Notes";
 import {
@@ -9,6 +11,7 @@ import {
   openModalSort,
   closeModalSort,
 } from "../../store/slices/modalSlice";
+import { setSearchTitle } from "../../store/slices/sortSlice";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import ModalNote from "../../components/modals/ModalNote";
@@ -22,9 +25,28 @@ export default function NotePage() {
   const { isNoteOpen, isTagOpen, isSortOpen } = useAppSelector(
     (state) => state.modal
   );
+  const { searchTitle } = useAppSelector((state) => state.sort);
 
-  // isPinned: true인 객체의 갯수
-  const pinnedNoteCount = prodNotes.filter((note) => note.isPinned).length;
+  // 검색: input text -> searchTitle -> Notes에서 map
+  const searchTitleToNotes = useMemo(() => {
+    if (!searchTitle) {
+      return prodNotes;
+    }
+    return prodNotes.filter((note) =>
+      note.title.toLowerCase().includes(searchTitle.toLowerCase())
+    );
+  }, [prodNotes, searchTitle]);
+
+  // 객체의 갯수: 전체, isPinned:true
+  const noteCount = searchTitleToNotes.length;
+  const pinnedNoteCount = searchTitleToNotes.filter(
+    (note) => note.isPinned
+  ).length;
+
+  // 디스패치 전달
+  const handleSearchTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchTitle(event.target.value));
+  };
 
   const handleModalNote = () => {
     if (!isNoteOpen) {
@@ -54,17 +76,18 @@ export default function NotePage() {
             <button onClick={handleModalTag}>+태그</button>
           </div>
           <div className={style.search}>
-            <input type="text" placeholder="노트의 제목을 입력해주세요" />
+            <input
+              type="text"
+              placeholder="노트의 제목을 입력해주세요"
+              onChange={handleSearchTitle}
+            />
             <button onClick={handleModalSort}>정렬</button>
           </div>
           <Notes
             text={`Pinned Notes (${pinnedNoteCount})`}
             isPinnedCheck={true}
           />
-          <Notes
-            text={`All Notes (${prodNotes.length})`}
-            isPinnedCheck={false}
-          />
+          <Notes text={`All Notes (${noteCount})`} isPinnedCheck={false} />
         </div>
       </div>
       {isNoteOpen && <ModalNote onClose={() => dispatch(closeModalNote())} />}
