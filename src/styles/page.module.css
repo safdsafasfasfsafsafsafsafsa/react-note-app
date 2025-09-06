@@ -30,6 +30,10 @@
   border-bottom: 3px solid rgba(128, 128, 128, 0.1);
 }
 
+.header h2 {
+  user-select: none;
+}
+
 .header button {
   display: inline-block;
   padding: 8px 24px;

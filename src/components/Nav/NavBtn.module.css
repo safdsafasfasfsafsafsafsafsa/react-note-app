@@ -10,8 +10,10 @@
   padding-right: 20px;
 }
 
+/* 텍스트 드래그 막기 */
 .btn p {
   font-weight: bold;
+  user-select: none;
 }
 
 .btn:hover {
