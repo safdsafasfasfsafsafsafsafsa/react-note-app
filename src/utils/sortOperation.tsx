@@ -1,7 +1,9 @@
 import type { Note } from "../interfaces/types";
 
+// Notes 컴포넌트에서 정렬
+
 // high 우선
-export function sortByPriorityLtoH(notes: Note[]): Note[] {
+export function sortByPriorityHigh(notes: Note[]): Note[] {
   // 배열의 복사본을 만들어 원본 배열을 수정하지 않습니다.
   const sortedNotes = [...notes];
 
@@ -21,7 +23,7 @@ export function sortByPriorityLtoH(notes: Note[]): Note[] {
 }
 
 // low 우선
-export function sortByPriorityHtoL(notes: Note[]): Note[] {
+export function sortByPriorityLow(notes: Note[]): Note[] {
   const sortedNotes = [...notes];
 
   sortedNotes.sort((a, b) => {

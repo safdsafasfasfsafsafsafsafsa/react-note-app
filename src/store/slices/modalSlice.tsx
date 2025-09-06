@@ -3,12 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface Modal {
   isNoteOpen: boolean;
+  isNoteOpenUpdate: boolean;
   isTagOpen: boolean;
   isSortOpen: boolean;
 }
 
 const initialState: Modal = {
   isNoteOpen: false,
+  isNoteOpenUpdate: false,
   isTagOpen: false,
   isSortOpen: false,
 };
@@ -22,6 +24,12 @@ const modalSlice = createSlice({
     },
     closeModalNote: (state) => {
       state.isNoteOpen = false;
+    },
+    openModalNoteUpdate: (state) => {
+      state.isNoteOpenUpdate = true;
+    },
+    closeModalNoteUpdate: (state) => {
+      state.isNoteOpenUpdate = false;
     },
     openModalTag: (state) => {
       state.isTagOpen = true;
@@ -41,6 +49,8 @@ const modalSlice = createSlice({
 export const {
   openModalNote,
   closeModalNote,
+  openModalNoteUpdate,
+  closeModalNoteUpdate,
   openModalTag,
   closeModalTag,
   openModalSort,

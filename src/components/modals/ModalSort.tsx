@@ -44,22 +44,22 @@ export default function ModalSort({ onClose }: ModalProps) {
               className={style.input}
               type="radio"
               name="sort"
-              value="ltoh"
-              checked={sortOption === "ltoh"}
+              value="high"
+              checked={sortOption === "high"}
               onChange={handleSortChange}
             />
-            Low to High
+            High
           </label>
           <label>
             <input
               className={style.input}
               type="radio"
               name="sort"
-              value="htol"
-              checked={sortOption === "htol"}
+              value="low"
+              checked={sortOption === "low"}
               onChange={handleSortChange}
             />
-            High to Low
+            Low
           </label>
         </div>
         <div className={style.date}>

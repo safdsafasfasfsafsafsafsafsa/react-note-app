@@ -35,6 +35,12 @@ export interface ModalProps {
   onClose: () => void;
 }
 
+// Note 전체 수정에서 id로 초기값 불러올 때
+export interface ModalIdProps {
+  noteId: string;
+  onClose: () => void;
+}
+
 export interface Tags {
   tag: string;
 }

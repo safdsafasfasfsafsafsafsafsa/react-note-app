@@ -5,8 +5,8 @@ import Note from "../../components/Note/Note";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import type { NotesProps } from "../../interfaces/types";
 import {
-  sortByPriorityLtoH,
-  sortByPriorityHtoL,
+  sortByPriorityHigh,
+  sortByPriorityLow,
   sortByLatestDate,
   sortByCreatedDate,
   sortByEditedDate,
@@ -18,12 +18,12 @@ export default function Notes({ text, isPinnedCheck }: NotesProps) {
   let sortedNote = [];
 
   switch (sortOption) {
-    case "ltoh": {
-      sortedNote = sortByPriorityLtoH(prodNotes);
+    case "high": {
+      sortedNote = sortByPriorityHigh(prodNotes);
       break;
     }
-    case "htol": {
-      sortedNote = sortByPriorityHtoL(prodNotes);
+    case "low": {
+      sortedNote = sortByPriorityLow(prodNotes);
       break;
     }
     case "latest": {

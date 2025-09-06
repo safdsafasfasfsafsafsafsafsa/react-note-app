@@ -6,9 +6,14 @@ import style from "./Note.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { updatePinToLocalStorage } from "../../store/asyncThunks/noteThunk";
+import {
+  openModalNoteUpdate,
+  closeModalNoteUpdate,
+} from "../../store/slices/modalSlice";
 import type { Note, NoteProps } from "../../interfaces/types";
 import dateFormat from "../../utils/dateFormat";
 import { truncateText } from "../../utils/truncateText";
+import ModalNoteUpdate from "../modals/ModalNoteUpdate";
 
 export default function Note({ note }: NoteProps) {
   // const navigate = useNavigate();
@@ -19,12 +24,20 @@ export default function Note({ note }: NoteProps) {
 
   const dispatch = useAppDispatch();
 
+  const { isNoteOpenUpdate } = useAppSelector((state) => state.modal);
+
+  const handleModalNote = () => {
+    if (!isNoteOpenUpdate) {
+      dispatch(openModalNoteUpdate());
+    }
+  };
+
   // isPinned 변환
   const handleIsPinned = (note: Note) => {
     dispatch(updatePinToLocalStorage(note));
   };
 
-  // 타이틀, 내용 줄이기
+  // 타이틀 & 내용 줄이기
   const trunTitle = truncateText(note.title, 18);
   const trunContext = truncateText(note.content, 160);
 
@@ -33,45 +46,53 @@ export default function Note({ note }: NoteProps) {
   const dateForNote = dateFormat(new Date(currentNote.createDate));
 
   return (
-    <div
-      id={note.id}
-      className={style.note}
-      style={{ backgroundColor: note.color }}
-    >
-      <div className={style.note__title}>
-        <h3>{trunTitle}</h3>
-        <div>
-          <p>{note.priority}</p>
-          {note.isPinned ? (
-            <img
-              onClick={() => handleIsPinned(currentNote)}
-              src="/img/pin.svg"
-              alt="pin"
-            />
-          ) : (
-            <img
-              onClick={() => handleIsPinned(currentNote)}
-              src="/img/pin_empty.svg"
-              alt="pin"
-            />
-          )}
+    <>
+      <div
+        id={note.id}
+        className={style.note}
+        style={{ backgroundColor: note.color }}
+      >
+        <div className={style.note__title}>
+          <h3>{trunTitle}</h3>
+          <div>
+            <p>{note.priority}</p>
+            {note.isPinned ? (
+              <img
+                onClick={() => handleIsPinned(currentNote)}
+                src="/img/pin.svg"
+                alt="pin"
+              />
+            ) : (
+              <img
+                onClick={() => handleIsPinned(currentNote)}
+                src="/img/pin_empty.svg"
+                alt="pin"
+              />
+            )}
+          </div>
+        </div>
+        <div className={style.note__content}>
+          {/* react-quill: WYSIWYG 적용 */}
+          <div dangerouslySetInnerHTML={{ __html: trunContext }} />
+        </div>
+        <div className={style.note__tag}>
+          <p>{note.tag}</p>
+        </div>
+        <div className={style.note__bottom}>
+          <p>{dateForNote}</p>
+          <div>
+            <img onClick={handleModalNote} src="/img/pencil.svg" alt="update" />
+            <img src="/img/trash-can.svg" alt="delete" />
+          </div>
         </div>
       </div>
-      <div className={style.note__content}>
-        {/* react-quill: WYSIWYG 적용 */}
-        <div dangerouslySetInnerHTML={{ __html: trunContext }} />
-      </div>
-      <div className={style.note__tag}>
-        <p>{note.tag}</p>
-      </div>
-      <div className={style.note__bottom}>
-        <p>{dateForNote}</p>
-        <div>
-          <img src="/img/pencil.svg" alt="update" />
-          <img src="/img/trash-can.svg" alt="delete" />
-        </div>
-      </div>
-    </div>
+      {isNoteOpenUpdate && (
+        <ModalNoteUpdate
+          noteId={note.id}
+          onClose={() => dispatch(closeModalNoteUpdate())}
+        />
+      )}
+    </>
   );
 }
 

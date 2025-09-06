@@ -8,7 +8,7 @@ import {
 import {
   addNoteToLocalStorage,
   updatePinToLocalStorage,
-  updateColorToLocalStorage,
+  updateNoteToLocalStorage,
 } from "../asyncThunks/noteThunk";
 import type { Note, Tags } from "../../interfaces/types";
 
@@ -139,37 +139,37 @@ const mainSlice = createSlice({
       .addCase(updatePinToLocalStorage.rejected, (state) => {
         state.status = "failed";
       })
-      // 수정: color 변경
-      .addCase(updateColorToLocalStorage.pending, (state) => {
+      // 수정: Note 객체 하나 변경
+      .addCase(updateNoteToLocalStorage.pending, (state) => {
         state.status = "loading";
       })
       .addCase(
-        updateColorToLocalStorage.fulfilled,
+        updateNoteToLocalStorage.fulfilled,
         (state, action: PayloadAction<Note>) => {
           state.status = "succeeded";
           const updatedNote = action.payload;
 
-          // ✅ notes 배열에서 해당 노트 찾아서 isPinned 속성만 업데이트
+          // Note 갱신
           const noteIndex = state.notes.findIndex(
             (note) => note.id === updatedNote.id
           );
           if (noteIndex !== -1) {
-            state.notes[noteIndex].color = updatedNote.color;
+            state.notes[noteIndex] = updatedNote;
           }
 
-          // ✅ prodNotes 배열에서 해당 노트 찾아서 isPinned 속성만 업데이트
+          // prodNote 갱신
           const prodNoteIndex = state.prodNotes.findIndex(
             (note) => note.id === updatedNote.id
           );
           if (prodNoteIndex !== -1) {
-            state.prodNotes[prodNoteIndex].color = updatedNote.color;
+            state.notes[prodNoteIndex] = updatedNote;
           }
 
           localStorage.setItem("notes", JSON.stringify(state.notes));
           localStorage.setItem("prodNotes", JSON.stringify(state.prodNotes));
         }
       )
-      .addCase(updateColorToLocalStorage.rejected, (state) => {
+      .addCase(updateNoteToLocalStorage.rejected, (state) => {
         state.status = "failed";
       });
   },
