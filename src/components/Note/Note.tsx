@@ -12,6 +12,8 @@ import {
 import {
   openModalNoteUpdate,
   closeModalNoteUpdate,
+  openModalDeletePermanently,
+  closeModalDeletePermanently,
 } from "../../store/slices/modalSlice";
 import { noteIdUpdate } from "../../store/slices/noteUpdateSlice";
 
@@ -20,6 +22,7 @@ import type { INote, INoteProps } from "../../interfaces/types";
 import dateFormat from "../../utils/dateFormat";
 import { truncateText } from "../../utils/truncateText";
 import ModalNoteUpdate from "../modals/ModalNoteUpdate";
+import ModalNoteDelete from "../modals/ModalNoteDelete";
 
 export default function Note({ note }: INoteProps) {
   // const navigate = useNavigate();
@@ -30,13 +33,21 @@ export default function Note({ note }: INoteProps) {
 
   const dispatch = useAppDispatch();
 
-  const { isNoteOpenUpdate } = useAppSelector((state) => state.modal);
+  const { isNoteUpdateOpen, isDeletePermanentlyOpen } = useAppSelector(
+    (state) => state.modal
+  );
 
   // 모달 열기: 현 노트의 상태 이월
   const handleModalNoteUpdate = () => {
-    if (!isNoteOpenUpdate) {
+    if (!isNoteUpdateOpen) {
       dispatch(noteIdUpdate(note.id));
       dispatch(openModalNoteUpdate());
+    }
+  };
+
+  const handleModalNoteDelete = () => {
+    if (!isDeletePermanentlyOpen) {
+      dispatch(openModalDeletePermanently());
     }
   };
 
@@ -107,7 +118,11 @@ export default function Note({ note }: INoteProps) {
                   />
                 </div>
                 <div className={style.note__img}>
-                  <img src="/img/trash-can.svg" alt="deletePermanently" />
+                  <img
+                    onClick={handleModalNoteDelete}
+                    src="/img/trash-can.svg"
+                    alt="deletePermanently"
+                  />
                 </div>
               </>
             ) : (
@@ -132,8 +147,13 @@ export default function Note({ note }: INoteProps) {
           </div>
         </div>
       </div>
-      {isNoteOpenUpdate && (
+      {isNoteUpdateOpen && (
         <ModalNoteUpdate onClose={() => dispatch(closeModalNoteUpdate())} />
+      )}
+      {isDeletePermanentlyOpen && (
+        <ModalNoteDelete
+          onClose={() => dispatch(closeModalDeletePermanently())}
+        />
       )}
     </>
   );

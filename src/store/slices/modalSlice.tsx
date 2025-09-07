@@ -3,16 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface IModal {
   isNoteOpen: boolean;
-  isNoteOpenUpdate: boolean;
+  isNoteUpdateOpen: boolean;
   isTagOpen: boolean;
   isSortOpen: boolean;
+  isDeletePermanentlyOpen: boolean;
 }
 
 const initialState: IModal = {
   isNoteOpen: false,
-  isNoteOpenUpdate: false,
+  isNoteUpdateOpen: false,
   isTagOpen: false,
   isSortOpen: false,
+  isDeletePermanentlyOpen: false,
 };
 
 const modalSlice = createSlice({
@@ -26,10 +28,10 @@ const modalSlice = createSlice({
       state.isNoteOpen = false;
     },
     openModalNoteUpdate: (state) => {
-      state.isNoteOpenUpdate = true;
+      state.isNoteUpdateOpen = true;
     },
     closeModalNoteUpdate: (state) => {
-      state.isNoteOpenUpdate = false;
+      state.isNoteUpdateOpen = false;
     },
     openModalTag: (state) => {
       state.isTagOpen = true;
@@ -43,6 +45,12 @@ const modalSlice = createSlice({
     closeModalSort: (state) => {
       state.isSortOpen = false;
     },
+    openModalDeletePermanently: (state) => {
+      state.isDeletePermanentlyOpen = true;
+    },
+    closeModalDeletePermanently: (state) => {
+      state.isDeletePermanentlyOpen = false;
+    },
   },
 });
 
@@ -55,6 +63,8 @@ export const {
   closeModalTag,
   openModalSort,
   closeModalSort,
+  openModalDeletePermanently,
+  closeModalDeletePermanently,
 } = modalSlice.actions;
 export default modalSlice.reducer;
 
