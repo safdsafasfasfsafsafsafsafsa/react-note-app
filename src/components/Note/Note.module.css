@@ -66,14 +66,24 @@
   margin: 0;
 }
 
-.note__bottom div {
+.note__imgs {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
+.note__img:hover {
+  /* 색 반전 */
+  background-color: black;
+}
+
 .note__bottom img {
   width: 20px;
   height: 20px;
+}
+
+.note__bottom img:hover {
+  /* 색 반전 */
+  filter: invert(100%);
 }

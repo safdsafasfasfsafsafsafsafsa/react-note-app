@@ -95,30 +95,38 @@ export default function Note({ note }: INoteProps) {
         </div>
         <div className={style.note__bottom}>
           <p>{dateForNote}</p>
-          <div>
+          <div className={style.note__imgs}>
             {note.isTrash ? (
               // true: Trash Page에만 출력, 복구 or 완전 삭제
               <>
-                <img
-                  onClick={() => handleIsTrash(currentNote)}
-                  src="/img/reverse-left.svg"
-                  alt="undo"
-                />
-                <img src="/img/trash-can.svg" alt="deletePermanently" />
+                <div className={style.note__img}>
+                  <img
+                    onClick={() => handleIsTrash(currentNote)}
+                    src="/img/reverse-left.svg"
+                    alt="undo"
+                  />
+                </div>
+                <div className={style.note__img}>
+                  <img src="/img/trash-can.svg" alt="deletePermanently" />
+                </div>
               </>
             ) : (
               // false: 수정, 삭제
               <>
-                <img
-                  onClick={handleModalNoteUpdate}
-                  src="/img/pencil.svg"
-                  alt="update"
-                />
-                <img
-                  onClick={() => handleIsTrash(currentNote)}
-                  src="/img/trash-can.svg"
-                  alt="delete"
-                />
+                <div className={style.note__img}>
+                  <img
+                    onClick={handleModalNoteUpdate}
+                    src="/img/pencil.svg"
+                    alt="update"
+                  />
+                </div>
+                <div className={style.note__img}>
+                  <img
+                    onClick={() => handleIsTrash(currentNote)}
+                    src="/img/trash-can.svg"
+                    alt="delete"
+                  />
+                </div>
               </>
             )}
           </div>
