@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from "uuid";
 import type { INote } from "../interfaces/types";
 
 export default function createNote(noteData: Partial<INote>) {
-  // export default function createNote() {
   const newId = uuidv4();
 
   return {

@@ -23,7 +23,6 @@ export default function ModalSort({ onClose }: IModalProps) {
 
   const handleSortChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(sortChange(e.target.value));
-    console.log("선택된 정렬 옵션:", e.target.value);
   };
 
   const handleSortClear = () => {

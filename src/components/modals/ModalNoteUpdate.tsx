@@ -27,10 +27,6 @@ export default function ModalNoteUpdate({ onClose }: IModalProps) {
   const { noteId } = useAppSelector((state) => state.noteUpdate);
 
   // // 현 위치 객체 불러오기
-  // const [noteIndex, setNoteIndex] = useState<number>(
-  //   // prodNotes.findIndex((note) => note.id === noteId)
-  //   0
-  // );
   const noteIndex = prodNotes.findIndex((note) => note.id === noteId);
 
   // 보낼 내용, 초기값은 원래 객체에서 받아오기
@@ -47,17 +43,10 @@ export default function ModalNoteUpdate({ onClose }: IModalProps) {
     prodNotes[noteIndex].priority
   );
 
-  // 수정 버튼을 클릭 시 이 함수를 호출하여 editingNote 상태를 설정합니다.
-  // const [editingNote, setEditingNote] = useState<Note | null>(null);
-
-  // const handleEdit = (note: Note) => {
-  //   setEditingNote(note);
-  // };
-
   // 버블링 방지
   const handleOverlayClick = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
-      dispatch(noteIdUpdate("")); // 종료 시 초기화
+      dispatch(noteIdUpdate("")); // 종료 시 noteId 초기화
       onClose();
     }
   };
@@ -106,9 +95,9 @@ export default function ModalNoteUpdate({ onClose }: IModalProps) {
       dispatch(updateNoteToLocalStorage(updateNote));
     }
 
-    // 성공 시 초기화,
+    // 성공 시 초기화
     if (status === "succeeded") {
-      dispatch(noteIdUpdate("")); // 종료 시 초기화
+      dispatch(noteIdUpdate("")); // 종료 시 noteId 초기화
       setTitleValue("");
       setEditerValue("");
       setSelectedColor("white");
@@ -182,7 +171,3 @@ export default function ModalNoteUpdate({ onClose }: IModalProps) {
     </>
   );
 }
-
-/**
- * Editer에서 작성한 걸 btn-create 누르면 noteSlice로
- */

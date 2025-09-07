@@ -47,6 +47,7 @@ export default function Note({ note }: INoteProps) {
 
   const handleModalNoteDelete = () => {
     if (!isDeletePermanentlyOpen) {
+      dispatch(noteIdUpdate(note.id));
       dispatch(openModalDeletePermanently());
     }
   };
@@ -126,7 +127,7 @@ export default function Note({ note }: INoteProps) {
                 </div>
               </>
             ) : (
-              // false: 수정, 삭제
+              // false: 일반 Page, 수정 or 삭제
               <>
                 <div className={style.note__img}>
                   <img
