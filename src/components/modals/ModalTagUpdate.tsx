@@ -2,7 +2,10 @@ import React from "react";
 import style from "./ModalTag.module.css";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { addTagToLocalStorage } from "../../store/asyncThunks/tagTrunk";
+import {
+  addTagToLocalStorage,
+  deleteTagToLocalStorage,
+} from "../../store/asyncThunks/tagTrunk";
 import type { IModalProps, ITags } from "../../interfaces/types";
 
 export default function ModalTagUpdate({ onClose }: IModalProps) {
@@ -31,6 +34,10 @@ export default function ModalTagUpdate({ onClose }: IModalProps) {
     }
   };
 
+  const handleDeleteTag = (tag: ITags) => {
+    dispatch(deleteTagToLocalStorage(tag));
+  };
+
   return (
     <div className={style.modal} onClick={handleOverlayClick}>
       <div className={style.wrapper} onClick={handleContentClick}>
@@ -45,10 +52,14 @@ export default function ModalTagUpdate({ onClose }: IModalProps) {
         />
         <div className={style.tags}>
           {/* map으로 tag만 추출 */}
-          {tags.map((tag) => (
+          {tags.map((inTag) => (
             <div className={style.tag}>
-              <p>{tag.tag}</p>
-              <img src="/img/x.svg" alt="delete" />
+              <p>{inTag.tag}</p>
+              <img
+                src="/img/x.svg"
+                alt="delete"
+                onClick={() => handleDeleteTag(inTag)}
+              />
             </div>
           ))}
         </div>

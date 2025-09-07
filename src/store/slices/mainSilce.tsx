@@ -12,7 +12,10 @@ import {
   updateTrashToLocalStorage,
   deleteNoteToLocalStorage,
 } from "../asyncThunks/noteThunk";
-import { addTagToLocalStorage } from "../asyncThunks/tagTrunk";
+import {
+  addTagToLocalStorage,
+  deleteTagToLocalStorage,
+} from "../asyncThunks/tagTrunk";
 import type { INote, ITags } from "../../interfaces/types";
 
 // 2. slice의 상태 타입을 정의합니다.
@@ -240,6 +243,23 @@ const mainSlice = createSlice({
         }
       )
       .addCase(deleteNoteToLocalStorage.rejected, (state) => {
+        state.status = "failed";
+      })
+
+      // 삭제: 태그 삭제
+      .addCase(deleteTagToLocalStorage.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        deleteTagToLocalStorage.fulfilled,
+        (state, action: PayloadAction<ITags>) => {
+          state.status = "succeeded";
+          const deletedTag = action.payload;
+
+          state.tags = state.tags.filter((note) => note.tag !== deletedTag.tag);
+        }
+      )
+      .addCase(deleteTagToLocalStorage.rejected, (state) => {
         state.status = "failed";
       });
   },
