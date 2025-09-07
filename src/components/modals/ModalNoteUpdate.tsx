@@ -54,7 +54,7 @@ export default function ModalNoteUpdate({ onClose }: IModalProps) {
     event.stopPropagation();
   };
 
-  // 모달 닫기
+  // 모달
   const handleModalTag = () => {
     if (!isTagOpen) {
       dispatch(openModalTag());

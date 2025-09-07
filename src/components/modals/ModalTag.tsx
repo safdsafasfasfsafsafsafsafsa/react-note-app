@@ -1,16 +1,34 @@
 import React from "react";
 import style from "./ModalTag.module.css";
-import type { IModalProps } from "../../interfaces/types";
+
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { addTagToLocalStorage } from "../../store/asyncThunks/tagTrunk";
+import type { IModalProps, ITags } from "../../interfaces/types";
 
 export default function ModalTag({ onClose }: IModalProps) {
+  const dispatch = useAppDispatch();
+
+  const { tags } = useAppSelector((state) => state.main);
+
   const handleOverlayClick = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
       onClose();
     }
   };
-
   const handleContentClick = (event: React.MouseEvent) => {
     event.stopPropagation();
+  };
+
+  // 엔터 눌러 태그 추가
+  const handleEnterAddTag = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+
+      const newTag: ITags = {
+        tag: event.currentTarget.value,
+      };
+      dispatch(addTagToLocalStorage(newTag));
+    }
   };
 
   return (
@@ -21,23 +39,18 @@ export default function ModalTag({ onClose }: IModalProps) {
           className={style.newTag}
           placeholder="새 태그 추가"
           type="text"
-          name=""
-          id=""
+          id="newTag"
+          name="newTag"
+          onKeyDown={handleEnterAddTag}
         />
         <div className={style.tags}>
           {/* map으로 tag만 추출 */}
-          <div className={style.tag}>
-            <p>Coding</p>
-            <img src="/img/plus.svg" alt="" />
-          </div>
-          <div className={style.tag}>
-            <p>Exercise</p>
-            <img src="/img/plus.svg" alt="" />
-          </div>
-          <div className={style.tag}>
-            <p>Quotes</p>
-            <img src="/img/plus.svg" alt="" />
-          </div>
+          {tags.map((tag) => (
+            <div className={style.tag}>
+              <p>{tag.tag}</p>
+              <img src="/img/plus.svg" alt="plus" />
+            </div>
+          ))}
         </div>
       </div>
     </div>

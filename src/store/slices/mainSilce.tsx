@@ -12,6 +12,7 @@ import {
   updateTrashToLocalStorage,
   deleteNoteToLocalStorage,
 } from "../asyncThunks/noteThunk";
+import { addTagToLocalStorage } from "../asyncThunks/tagTrunk";
 import type { INote, ITags } from "../../interfaces/types";
 
 // 2. slice의 상태 타입을 정의합니다.
@@ -36,7 +37,7 @@ const mainSlice = createSlice({
   extraReducers: (builder) => {
     // 5. 비동기 thunk의 생명주기 액션을 처리합니다.
     builder
-      // 시작 시 로드
+      // 시작 시 로드: Notes
       .addCase(loadNotesFromLocalStorage.pending, (state) => {
         state.status = "loading";
       })
@@ -58,6 +59,8 @@ const mainSlice = createSlice({
       .addCase(loadNotesFromLocalStorage.rejected, (state) => {
         state.status = "failed";
       })
+
+      // 시작 시 로드: prodNotes
       .addCase(loadProdNotesFromLocalStorage.pending, (state) => {
         state.status = "loading";
       })
@@ -77,6 +80,8 @@ const mainSlice = createSlice({
       .addCase(loadProdNotesFromLocalStorage.rejected, (state) => {
         state.status = "failed";
       })
+
+      // 시작 시 로드: Tags
       .addCase(loadTagsFromLocalStorage.pending, (state) => {
         state.status = "loading";
       })
@@ -104,6 +109,21 @@ const mainSlice = createSlice({
         }
       )
       .addCase(addNoteToLocalStorage.rejected, (state) => {
+        state.status = "failed";
+      })
+
+      // 추가: 태그 종류
+      .addCase(addTagToLocalStorage.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(
+        addTagToLocalStorage.fulfilled,
+        (state, action: PayloadAction<ITags>) => {
+          state.status = "succeeded";
+          state.tags = [...state.tags, action.payload];
+        }
+      )
+      .addCase(addTagToLocalStorage.rejected, (state) => {
         state.status = "failed";
       })
 

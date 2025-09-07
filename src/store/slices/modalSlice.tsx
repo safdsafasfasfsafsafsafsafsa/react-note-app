@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface IModal {
   isNoteOpen: boolean;
   isNoteUpdateOpen: boolean;
   isTagOpen: boolean;
+  isTagUpdateOpen: boolean;
   isSortOpen: boolean;
   isDeletePermanentlyOpen: boolean;
 }
@@ -13,6 +13,7 @@ const initialState: IModal = {
   isNoteOpen: false,
   isNoteUpdateOpen: false,
   isTagOpen: false,
+  isTagUpdateOpen: false,
   isSortOpen: false,
   isDeletePermanentlyOpen: false,
 };
@@ -39,6 +40,12 @@ const modalSlice = createSlice({
     closeModalTag: (state) => {
       state.isTagOpen = false;
     },
+    openModalTagUpdate: (state) => {
+      state.isTagUpdateOpen = true;
+    },
+    closeModalTagUpdate: (state) => {
+      state.isTagUpdateOpen = false;
+    },
     openModalSort: (state) => {
       state.isSortOpen = true;
     },
@@ -61,6 +68,8 @@ export const {
   closeModalNoteUpdate,
   openModalTag,
   closeModalTag,
+  openModalTagUpdate,
+  closeModalTagUpdate,
   openModalSort,
   closeModalSort,
   openModalDeletePermanently,

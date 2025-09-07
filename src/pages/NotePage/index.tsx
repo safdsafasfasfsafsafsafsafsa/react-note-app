@@ -6,8 +6,8 @@ import Notes from "../../components/Note/Notes";
 import {
   openModalNote,
   closeModalNote,
-  openModalTag,
-  closeModalTag,
+  openModalTagUpdate,
+  closeModalTagUpdate,
   openModalSort,
   closeModalSort,
 } from "../../store/slices/modalSlice";
@@ -15,14 +15,14 @@ import { setSearchTitle } from "../../store/slices/sortSlice";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import ModalNote from "../../components/modals/ModalNote";
-import ModalTag from "../../components/modals/ModalTag";
+import ModalTagUpdate from "../../components/modals/ModalTagUpdate";
 import ModalSort from "../../components/modals/ModalSort";
 
 export default function NotePage() {
   const dispatch = useAppDispatch();
 
   const { prodNotes } = useAppSelector((state) => state.main);
-  const { isNoteOpen, isTagOpen, isSortOpen } = useAppSelector(
+  const { isNoteOpen, isTagUpdateOpen, isSortOpen } = useAppSelector(
     (state) => state.modal
   );
   const { searchTitle } = useAppSelector((state) => state.sort);
@@ -58,9 +58,9 @@ export default function NotePage() {
     }
   };
 
-  const handleModalTag = () => {
-    if (!isTagOpen) {
-      dispatch(openModalTag());
+  const handleModalTagUpdate = () => {
+    if (!isTagUpdateOpen) {
+      dispatch(openModalTagUpdate());
     }
   };
 
@@ -77,7 +77,7 @@ export default function NotePage() {
           <div className={style.header}>
             <h2>Note</h2>
             <button onClick={handleModalNote}>+노트</button>
-            <button onClick={handleModalTag}>+태그</button>
+            <button onClick={handleModalTagUpdate}>+태그</button>
           </div>
           <div className={style.search}>
             <input
@@ -95,7 +95,9 @@ export default function NotePage() {
         </div>
       </div>
       {isNoteOpen && <ModalNote onClose={() => dispatch(closeModalNote())} />}
-      {isTagOpen && <ModalTag onClose={() => dispatch(closeModalTag())} />}
+      {isTagUpdateOpen && (
+        <ModalTagUpdate onClose={() => dispatch(closeModalTagUpdate())} />
+      )}
       {isSortOpen && <ModalSort onClose={() => dispatch(closeModalSort())} />}
     </>
   );
