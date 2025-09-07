@@ -1,9 +1,11 @@
 import React from "react";
 import style from "./ModalSort.module.css";
+
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { deleteNoteToLocalStorage } from "../../store/asyncThunks/noteThunk";
 import { closeModalDeletePermanently } from "../../store/slices/modalSlice";
 import { noteIdUpdate } from "../../store/slices/noteUpdateSlice";
+
 import type { IModalProps, INote } from "../../interfaces/types";
 
 export default function ModalNoteDelete({ onClose }: IModalProps) {
