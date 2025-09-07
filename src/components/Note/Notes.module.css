@@ -12,6 +12,7 @@
   font-weight: 400;
   color: var(--text-color-gray);
   margin-bottom: 20px;
+  user-select: none;
 }
 
 .noteholder {

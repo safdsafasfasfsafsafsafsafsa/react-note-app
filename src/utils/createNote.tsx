@@ -1,19 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
+import type { INote } from "../interfaces/types";
 
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  color: string;
-  priority: string;
-  isPinned: boolean;
-  tag: string;
-  createDate: string;
-  updateDate: string;
-  isTrash: boolean;
-}
-
-export default function createNote(noteData: Partial<Note>) {
+export default function createNote(noteData: Partial<INote>) {
   const newId = uuidv4();
 
   return {
@@ -25,8 +13,9 @@ export default function createNote(noteData: Partial<Note>) {
     isPinned: false,
     tag: "",
     createDate: new Date().toISOString(),
-    updateDate: "",
+    updateDate: new Date().toISOString(),
     isTrash: false,
-    ...noteData, // 전달된 데이터로 덮어쓰기
+    ...noteData,
+    // 전달된 데이터로 덮어쓰기
   };
 }

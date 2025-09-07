@@ -4,42 +4,57 @@ import "react-quill-new/dist/quill.snow.css";
 import style from "./ModalNote.module.css";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import ModalTag from "./ModalTag";
+
 import {
   openModalTag,
   closeModalTag,
-  closeModalNote,
+  closeModalNoteUpdate,
 } from "../../store/slices/modalSlice";
-import { addNoteToLocalStorage } from "../../store/asyncThunks/noteThunk";
-import ModalTag from "../../components/modals/ModalTag";
-import type { IModalProps, INewNote } from "../../interfaces/types";
+import { noteIdUpdate } from "../../store/slices/noteUpdateSlice";
+import { updateNoteToLocalStorage } from "../../store/asyncThunks/noteThunk";
 
-export default function ModalNote({ onClose }: IModalProps) {
+import type { IModalProps, INote, INewNote } from "../../interfaces/types";
+
+// note.id를 props 해서 초기값 받아오기
+export default function ModalNoteUpdate({ onClose }: IModalProps) {
   const dispatch = useAppDispatch();
 
-  const { notes, prodNotes, tags, status } = useAppSelector(
+  const { id, notes, prodNotes, tags, status } = useAppSelector(
     (state) => state.main
   );
   const { isTagOpen } = useAppSelector((state) => state.modal);
+  const { noteId } = useAppSelector((state) => state.noteUpdate);
 
-  // 보낼 내용, 전달 성공하면 초기화하기
-  const [titleValue, setTitleValue] = useState<string>("");
-  const [editerValue, setEditerValue] = useState<string>("");
-  const [selectedColor, setSelectedColor] = useState<string>("white");
-  const [selectedPriority, setSelectedPriority] = useState<string>("low");
+  // // 현 위치 객체 불러오기
+  const noteIndex = prodNotes.findIndex((note) => note.id === noteId);
+
+  // 보낼 내용, 초기값은 원래 객체에서 받아오기
+  const [titleValue, setTitleValue] = useState<string>(
+    prodNotes[noteIndex].title
+  );
+  const [editerValue, setEditerValue] = useState<string>(
+    prodNotes[noteIndex].content
+  );
+  const [selectedColor, setSelectedColor] = useState<string>(
+    prodNotes[noteIndex].color
+  );
+  const [selectedPriority, setSelectedPriority] = useState<string>(
+    prodNotes[noteIndex].priority
+  );
 
   // 버블링 방지
   const handleOverlayClick = (event: React.MouseEvent) => {
-    // 이벤트가 발생한 요소가 modal-overlay인지 확인합니다.
-    // 이렇게 하면 modal-content를 클릭했을 때 닫히는 것을 방지할 수 있습니다.
     if (event.target === event.currentTarget) {
+      dispatch(noteIdUpdate("")); // 종료 시 noteId 초기화
       onClose();
     }
   };
   const handleContentClick = (event: React.MouseEvent) => {
-    // 이벤트 버블링을 막아 모달 오버레이로 클릭 이벤트가 전달되는 것을 막습니다.
     event.stopPropagation();
   };
 
+  // 모달 닫기
   const handleModalTag = () => {
     if (!isTagOpen) {
       dispatch(openModalTag());
@@ -59,25 +74,35 @@ export default function ModalNote({ onClose }: IModalProps) {
     setSelectedPriority(event.target.value);
   };
 
-  // 새 노트 추가: 정상적으로 처리되면 초기화시켜야
-  const handleAddNewNote = ({
+  // 업데이트
+  const handleUpdateNote = ({
     newTitle,
     newContent,
     newColor,
     newPriority,
-  }: // newTag,
-  INewNote) => {
-    dispatch(
-      addNoteToLocalStorage({ newTitle, newContent, newColor, newPriority })
-    );
+  }: INewNote) => {
+    // 기존 노트가 존재한다면 실행
+    if (prodNotes[noteIndex]) {
+      const updateNote: INote = {
+        ...prodNotes[noteIndex], // 기존 속성들을 복사
+        title: newTitle,
+        content: newContent,
+        color: newColor,
+        priority: newPriority,
+        updateDate: new Date().toISOString(), // ✅ 수정 날짜 갱신
+      };
+
+      dispatch(updateNoteToLocalStorage(updateNote));
+    }
 
     // 성공 시 초기화
     if (status === "succeeded") {
+      dispatch(noteIdUpdate("")); // 종료 시 noteId 초기화
       setTitleValue("");
       setEditerValue("");
       setSelectedColor("white");
       setSelectedPriority("low");
-      dispatch(closeModalNote());
+      dispatch(closeModalNoteUpdate());
     }
   };
 
@@ -85,7 +110,7 @@ export default function ModalNote({ onClose }: IModalProps) {
     <>
       <div className={style.modal} onClick={handleOverlayClick}>
         <div className={style.wrapper} onClick={handleContentClick}>
-          <p>노트 생성하기</p>
+          <p>노트 수정하기</p>
           <input
             className={style.title}
             type="text"
@@ -129,7 +154,7 @@ export default function ModalNote({ onClose }: IModalProps) {
             <button
               className={style.btnCreate}
               onClick={() =>
-                handleAddNewNote({
+                handleUpdateNote({
                   newTitle: titleValue,
                   newContent: editerValue,
                   newColor: selectedColor,
@@ -137,7 +162,7 @@ export default function ModalNote({ onClose }: IModalProps) {
                 })
               }
             >
-              생성하기
+              수정하기
             </button>
           </div>
         </div>
@@ -146,7 +171,3 @@ export default function ModalNote({ onClose }: IModalProps) {
     </>
   );
 }
-
-/**
- * Editer에서 작성한 걸 btn-create 누르면 noteSlice로
- */

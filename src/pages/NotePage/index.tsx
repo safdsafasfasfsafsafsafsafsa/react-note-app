@@ -1,32 +1,72 @@
-import React from "react";
+// https://highero.tistory.com/entry/useMemo%EB%A5%BC-%EC%95%8C%EC%95%84%EB%B4%85%EC%8B%9C%EB%8B%A4-Feat-%EC%98%88%EC%A0%9C
+
+import React, { useMemo } from "react";
 import style from "../../styles/page.module.css";
 import Notes from "../../components/Note/Notes";
-import { openModal, closeModal } from "../../store/slices/modalSlice";
-import { openModalTop, closeModalTop } from "../../store/slices/modalTopSlice";
+import {
+  openModalNote,
+  closeModalNote,
+  openModalTag,
+  closeModalTag,
+  openModalSort,
+  closeModalSort,
+} from "../../store/slices/modalSlice";
+import { setSearchTitle } from "../../store/slices/sortSlice";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import createNote from "../../utils/createNote";
 import ModalNote from "../../components/modals/ModalNote";
 import ModalTag from "../../components/modals/ModalTag";
+import ModalSort from "../../components/modals/ModalSort";
 
 export default function NotePage() {
   const dispatch = useAppDispatch();
 
   const { prodNotes } = useAppSelector((state) => state.main);
-  const { isOpen } = useAppSelector((state) => state.modal);
-  const { isTopOpen } = useAppSelector((state) => state.modalTop);
+  const { isNoteOpen, isTagOpen, isSortOpen } = useAppSelector(
+    (state) => state.modal
+  );
+  const { searchTitle } = useAppSelector((state) => state.sort);
 
-  // const myNote = createNote({ title: "TypeScript 학습" });
+  // 검색: input text -> searchTitle -> Notes에서 map
+  const searchTitleToNotes = useMemo(() => {
+    // isTrash:true 거르기
+    const sortedNotes = [...prodNotes];
+    const remainNotes = sortedNotes.filter((note) => !note.isTrash);
 
-  const handleModal = () => {
-    if (!isOpen) {
-      dispatch(openModal());
+    if (!searchTitle) {
+      return remainNotes;
+    }
+    return remainNotes.filter((note) =>
+      note.title.toLowerCase().includes(searchTitle.toLowerCase())
+    );
+  }, [prodNotes, searchTitle]);
+
+  // 객체의 갯수: 전체, isPinned:true
+  const noteCount = searchTitleToNotes.length;
+  const pinnedNoteCount = searchTitleToNotes.filter(
+    (note) => note.isPinned
+  ).length;
+
+  // 디스패치 전달
+  const handleSearchTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchTitle(event.target.value));
+  };
+
+  const handleModalNote = () => {
+    if (!isNoteOpen) {
+      dispatch(openModalNote());
     }
   };
 
-  const handleModalTop = () => {
-    if (!isTopOpen) {
-      dispatch(openModalTop());
+  const handleModalTag = () => {
+    if (!isTagOpen) {
+      dispatch(openModalTag());
+    }
+  };
+
+  const handleModalSort = () => {
+    if (!isSortOpen) {
+      dispatch(openModalSort());
     }
   };
 
@@ -36,19 +76,27 @@ export default function NotePage() {
         <div className={style.wrapper}>
           <div className={style.header}>
             <h2>Note</h2>
-            <button onClick={handleModal}>+노트</button>
-            <button onClick={handleModalTop}>+태그</button>
+            <button onClick={handleModalNote}>+노트</button>
+            <button onClick={handleModalTag}>+태그</button>
           </div>
           <div className={style.search}>
-            <input type="text" placeholder="노트의 제목을 입력해주세요" />
-            <button>정렬</button>
+            <input
+              type="text"
+              placeholder="노트의 제목을 입력해주세요"
+              onChange={handleSearchTitle}
+            />
+            <button onClick={handleModalSort}>정렬</button>
           </div>
-          <Notes text={`Pinned Notes (${prodNotes.length})`} />
-          <Notes text={`All Notes (${prodNotes.length})`} />
+          <Notes
+            text={`Pinned Notes (${pinnedNoteCount})`}
+            isPinnedCheck={true}
+          />
+          <Notes text={`All Notes (${noteCount})`} isPinnedCheck={false} />
         </div>
       </div>
-      {isOpen && <ModalNote onClose={() => dispatch(closeModal())} />}
-      {isTopOpen && <ModalTag onClose={() => dispatch(closeModalTop())} />}
+      {isNoteOpen && <ModalNote onClose={() => dispatch(closeModalNote())} />}
+      {isTagOpen && <ModalTag onClose={() => dispatch(closeModalTag())} />}
+      {isSortOpen && <ModalSort onClose={() => dispatch(closeModalSort())} />}
     </>
   );
 }

@@ -2,7 +2,7 @@ import React from "react";
 import style from "./ModalTag.module.css";
 import type { IModalProps } from "../../interfaces/types";
 
-export default function ModalTag({ onClose }: IModalProps) {
+export default function ModalTagUpdate({ onClose }: IModalProps) {
   const handleOverlayClick = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
       onClose();
@@ -16,7 +16,7 @@ export default function ModalTag({ onClose }: IModalProps) {
   return (
     <div className={style.modal} onClick={handleOverlayClick}>
       <div className={style.wrapper} onClick={handleContentClick}>
-        <p>태그 추가하기</p>
+        <p>태그 수정하기</p>
         <input
           className={style.newTag}
           placeholder="새 태그 추가"
@@ -28,15 +28,15 @@ export default function ModalTag({ onClose }: IModalProps) {
           {/* map으로 tag만 추출 */}
           <div className={style.tag}>
             <p>Coding</p>
-            <img src="/img/plus.svg" alt="" />
+            <img src="/img/x.svg" alt="" />
           </div>
           <div className={style.tag}>
-            <p>Exercise</p>
-            <img src="/img/plus.svg" alt="" />
+            <p>Coding</p>
+            <img src="/img/x.svg" alt="" />
           </div>
           <div className={style.tag}>
-            <p>Quotes</p>
-            <img src="/img/plus.svg" alt="" />
+            <p>Coding</p>
+            <img src="/img/x.svg" alt="" />
           </div>
         </div>
       </div>

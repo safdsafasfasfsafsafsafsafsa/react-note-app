@@ -1,19 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import type { INote, ITags } from "../../interfaces/types";
+import createNote from "../../utils/createNote";
 
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  color: string;
-  priority: string;
-  isPinned: boolean;
-  tag: string;
-  createDate: string;
-  updateDate: string;
-  isTrash: boolean;
-}
-
-export const loadNotesFromLocalStorage = createAsyncThunk<Note[], void>(
+// 시작 시 호출
+export const loadNotesFromLocalStorage = createAsyncThunk<INote[], void>(
   "notes/loadNotesFromLocalStorage",
   async () => {
     // localStorage에서 'notes' 키의 값을 가져옵니다.
@@ -23,10 +14,18 @@ export const loadNotesFromLocalStorage = createAsyncThunk<Note[], void>(
   }
 );
 
-export const loadProdNotesFromLocalStorage = createAsyncThunk<Note[], void>(
+export const loadProdNotesFromLocalStorage = createAsyncThunk<INote[], void>(
   "notes/loadProdNotesFromLocalStorage",
   async () => {
     const savedNotes = localStorage.getItem("prodNotes");
     return savedNotes ? JSON.parse(savedNotes) : [];
+  }
+);
+
+export const loadTagsFromLocalStorage = createAsyncThunk<ITags[], void>(
+  "notes/loadTagsFromLocalStorage",
+  async () => {
+    const savedTags = localStorage.getItem("tags");
+    return savedTags ? JSON.parse(savedTags) : [];
   }
 );

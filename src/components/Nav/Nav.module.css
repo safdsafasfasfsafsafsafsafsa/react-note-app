@@ -15,4 +15,5 @@
 
 .title {
   margin: 20px 30px 55px 30px;
+  user-select: none;
 }

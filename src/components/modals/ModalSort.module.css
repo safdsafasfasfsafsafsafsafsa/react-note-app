@@ -25,24 +25,27 @@
   gap: 12px;
 }
 
-.newTag {
-  padding: 3px;
-  border: transparent;
-  border-bottom: 1px solid black;
-}
-
-.tags {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.tag {
+.top {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
-.tag img {
-  width: 20px;
+.top button {
+  padding: 2px;
+}
+
+.priority {
+  display: flex;
+  flex-direction: column;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  margin-right: 5px;
 }
