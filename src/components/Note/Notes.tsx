@@ -56,7 +56,11 @@ export default function Notes({ text, isPinnedCheck }: INotesProps) {
     }
   }
 
-  const pinnedNotes = sortedNotes.filter((note) => note.isPinned);
+  // isTrash 확인
+  const sortedNotes2 = sortedNotes.filter((note) => !note.isTrash);
+
+  // isPinned 분기
+  const pinnedNotes = sortedNotes2.filter((note) => note.isPinned);
 
   return (
     <div className={style.notes}>
@@ -71,7 +75,7 @@ export default function Notes({ text, isPinnedCheck }: INotesProps) {
       ) : (
         /* 노트 컴포넌트 map, 우선순위 high 우선 호출 */
         <div className={style.noteholder}>
-          {sortedNotes.map((note) => (
+          {sortedNotes2.map((note) => (
             <Note key={note.id} note={note} />
           ))}
         </div>

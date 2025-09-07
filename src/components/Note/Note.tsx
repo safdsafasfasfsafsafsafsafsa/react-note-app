@@ -5,7 +5,10 @@ import style from "./Note.module.css";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import { updatePinToLocalStorage } from "../../store/asyncThunks/noteThunk";
+import {
+  updatePinToLocalStorage,
+  updateTrashToLocalStorage,
+} from "../../store/asyncThunks/noteThunk";
 import {
   openModalNoteUpdate,
   closeModalNoteUpdate,
@@ -29,14 +32,6 @@ export default function Note({ note }: INoteProps) {
 
   const { isNoteOpenUpdate } = useAppSelector((state) => state.modal);
 
-  // 부모 컴포넌트(예: NoteForm)
-  // const [editingNote, setEditingNote] = useState<Note | null>(null);
-
-  // 수정 버튼을 클릭했을 때 이 함수를 호출하여 editingNote 상태를 설정합니다.
-  //   const handleEditingNote = (note: Note) => {
-  //   setEditingNote(note);
-  // };
-
   // 모달 열기: 현 노트의 상태 이월
   const handleModalNoteUpdate = () => {
     if (!isNoteOpenUpdate) {
@@ -48,6 +43,11 @@ export default function Note({ note }: INoteProps) {
   // isPinned 변환
   const handleIsPinned = (note: INote) => {
     dispatch(updatePinToLocalStorage(note));
+  };
+
+  // isTrash 변환
+  const handleIsTrash = (note: INote) => {
+    dispatch(updateTrashToLocalStorage(note));
   };
 
   // 타이틀 & 내용 줄이기
@@ -70,12 +70,14 @@ export default function Note({ note }: INoteProps) {
           <div>
             <p>{note.priority}</p>
             {note.isPinned ? (
+              // true
               <img
                 onClick={() => handleIsPinned(currentNote)}
                 src="/img/pin.svg"
                 alt="pin"
               />
             ) : (
+              // false
               <img
                 onClick={() => handleIsPinned(currentNote)}
                 src="/img/pin_empty.svg"
@@ -94,12 +96,31 @@ export default function Note({ note }: INoteProps) {
         <div className={style.note__bottom}>
           <p>{dateForNote}</p>
           <div>
-            <img
-              onClick={handleModalNoteUpdate}
-              src="/img/pencil.svg"
-              alt="update"
-            />
-            <img src="/img/trash-can.svg" alt="delete" />
+            {note.isTrash ? (
+              // true: Trash Page에만 출력, 복구 or 완전 삭제
+              <>
+                <img
+                  onClick={() => handleIsTrash(currentNote)}
+                  src="/img/reverse-left.svg"
+                  alt="undo"
+                />
+                <img src="/img/trash-can.svg" alt="deletePermanently" />
+              </>
+            ) : (
+              // false: 수정, 삭제
+              <>
+                <img
+                  onClick={handleModalNoteUpdate}
+                  src="/img/pencil.svg"
+                  alt="update"
+                />
+                <img
+                  onClick={() => handleIsTrash(currentNote)}
+                  src="/img/trash-can.svg"
+                  alt="delete"
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

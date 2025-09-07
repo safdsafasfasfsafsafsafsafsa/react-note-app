@@ -29,10 +29,14 @@ export default function NotePage() {
 
   // 검색: input text -> searchTitle -> Notes에서 map
   const searchTitleToNotes = useMemo(() => {
+    // isTrash:true 거르기
+    const sortedNotes = [...prodNotes];
+    const remainNotes = sortedNotes.filter((note) => !note.isTrash);
+
     if (!searchTitle) {
-      return prodNotes;
+      return remainNotes;
     }
-    return prodNotes.filter((note) =>
+    return remainNotes.filter((note) =>
       note.title.toLowerCase().includes(searchTitle.toLowerCase())
     );
   }, [prodNotes, searchTitle]);

@@ -33,29 +33,6 @@ export const addNoteToLocalStorage = createAsyncThunk<INote, INewNote>(
   }
 );
 
-// 수정: isPinned 체크
-// 디스패치 실행 -> 그걸로 로컬에서 찾기 -> 갱신 후 boolean 변경
-export const updatePinToLocalStorage = createAsyncThunk<INote, INote>(
-  "notes/updatePinToLocalStorage",
-  async (item, thunkAPI) => {
-    try {
-      const newNote = createNote({
-        ...item,
-        isPinned: !item.isPinned,
-      });
-
-      return newNote;
-    } catch (error) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : "알 수 없는 에러가 발생했습니다.";
-      console.error("pin 중 에러 발생:", message);
-      return thunkAPI.rejectWithValue(message);
-    }
-  }
-);
-
 // 수정: 노트 객체
 // Note 수정 버튼 클릭해 ModalNote 나오면 수정 가능하도록
 export const updateNoteToLocalStorage = createAsyncThunk<INote, INote>(
@@ -94,6 +71,52 @@ export const updateNoteToLocalStorage = createAsyncThunk<INote, INote>(
           ? error.message
           : "알 수 없는 에러가 발생했습니다.";
       console.error("노트 수정 중 에러 발생:", message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// 수정: isPinned 체크
+// 디스패치 실행 -> 그걸로 로컬에서 찾기 -> 갱신 후 boolean 변경
+export const updatePinToLocalStorage = createAsyncThunk<INote, INote>(
+  "notes/updatePinToLocalStorage",
+  async (item, thunkAPI) => {
+    try {
+      const newNote = createNote({
+        ...item,
+        isPinned: !item.isPinned,
+      });
+
+      return newNote;
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "알 수 없는 에러가 발생했습니다.";
+      console.error("pin 중 에러 발생:", message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// 수정: isTrash 체크
+// 디스패치 실행 -> 그걸로 로컬에서 찾기 -> 갱신 후 boolean 변경
+export const updateTrashToLocalStorage = createAsyncThunk<INote, INote>(
+  "notes/updateTrashToLocalStorage",
+  async (item, thunkAPI) => {
+    try {
+      const newNote = createNote({
+        ...item,
+        isTrash: !item.isTrash,
+      });
+
+      return newNote;
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "알 수 없는 에러가 발생했습니다.";
+      console.error("pin 중 에러 발생:", message);
       return thunkAPI.rejectWithValue(message);
     }
   }

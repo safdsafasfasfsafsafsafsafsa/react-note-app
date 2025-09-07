@@ -10,7 +10,7 @@ export default function TrashPage() {
           <div className={style.header}>
             <h2>Trash</h2>
           </div>
-          <NotesClean />
+          <NotesClean isTrashCheck={true} />
         </div>
       </div>
     </>

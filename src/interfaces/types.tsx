@@ -30,6 +30,10 @@ export interface INotesProps {
   isPinnedCheck: boolean;
 }
 
+export interface INotesTrashProps {
+  isTrashCheck: boolean;
+}
+
 // 모달 컴포넌트의 props 타입을 정의합니다.
 export interface IModalProps {
   onClose: () => void;

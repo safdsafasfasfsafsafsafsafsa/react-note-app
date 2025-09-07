@@ -10,7 +10,7 @@ export default function ArchivePage() {
           <div className={style.header}>
             <h2>Archive</h2>
           </div>
-          <NotesClean />
+          <NotesClean isTrashCheck={false} />
         </div>
       </div>
     </>
