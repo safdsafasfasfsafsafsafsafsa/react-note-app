@@ -163,9 +163,6 @@ const mainSlice = createSlice({
           if (prodNoteIndex !== -1) {
             state.prodNotes[prodNoteIndex].isPinned = updatedNote.isPinned;
           }
-
-          // localStorage.setItem("notes", JSON.stringify(state.notes));
-          // localStorage.setItem("prodNotes", JSON.stringify(state.prodNotes));
         }
       )
       .addCase(updatePinToLocalStorage.rejected, (state) => {
@@ -195,9 +192,6 @@ const mainSlice = createSlice({
           if (prodNoteIndex !== -1) {
             state.prodNotes[prodNoteIndex].isTrash = updatedNote.isTrash;
           }
-
-          // localStorage.setItem("notes", JSON.stringify(state.notes));
-          // localStorage.setItem("prodNotes", JSON.stringify(state.prodNotes));
         }
       )
       .addCase(updateTrashToLocalStorage.rejected, (state) => {
