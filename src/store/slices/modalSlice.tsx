@@ -3,19 +3,19 @@ import { createSlice } from "@reduxjs/toolkit";
 interface IModal {
   isNoteOpen: boolean;
   isNoteUpdateOpen: boolean;
+  isNoteDeleteOpen: boolean;
   isTagOpen: boolean;
   isTagUpdateOpen: boolean;
   isSortOpen: boolean;
-  isDeletePermanentlyOpen: boolean;
 }
 
 const initialState: IModal = {
   isNoteOpen: false,
   isNoteUpdateOpen: false,
+  isNoteDeleteOpen: false,
   isTagOpen: false,
   isTagUpdateOpen: false,
   isSortOpen: false,
-  isDeletePermanentlyOpen: false,
 };
 
 const modalSlice = createSlice({
@@ -33,6 +33,12 @@ const modalSlice = createSlice({
     },
     closeModalNoteUpdate: (state) => {
       state.isNoteUpdateOpen = false;
+    },
+    openModalNoteDelete: (state) => {
+      state.isNoteDeleteOpen = true;
+    },
+    closeModalNoteDelete: (state) => {
+      state.isNoteDeleteOpen = false;
     },
     openModalTag: (state) => {
       state.isTagOpen = true;
@@ -52,12 +58,6 @@ const modalSlice = createSlice({
     closeModalSort: (state) => {
       state.isSortOpen = false;
     },
-    openModalDeletePermanently: (state) => {
-      state.isDeletePermanentlyOpen = true;
-    },
-    closeModalDeletePermanently: (state) => {
-      state.isDeletePermanentlyOpen = false;
-    },
   },
 });
 
@@ -66,14 +66,14 @@ export const {
   closeModalNote,
   openModalNoteUpdate,
   closeModalNoteUpdate,
+  openModalNoteDelete,
+  closeModalNoteDelete,
   openModalTag,
   closeModalTag,
   openModalTagUpdate,
   closeModalTagUpdate,
   openModalSort,
   closeModalSort,
-  openModalDeletePermanently,
-  closeModalDeletePermanently,
 } = modalSlice.actions;
 export default modalSlice.reducer;
 

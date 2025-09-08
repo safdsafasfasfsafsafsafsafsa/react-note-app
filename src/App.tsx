@@ -1,6 +1,16 @@
 import "./App.css";
 import React, { useEffect } from "react";
+import { Outlet, Routes, Route, Navigate } from "react-router-dom";
+
 import { useAppDispatch, useAppSelector } from "./hooks/hooks";
+import {
+  closeModalNote,
+  closeModalNoteUpdate,
+  closeModalNoteDelete,
+  closeModalTag,
+  closeModalTagUpdate,
+  closeModalSort,
+} from "./store/slices/modalSlice";
 import {
   loadNotesFromLocalStorage,
   loadProdNotesFromLocalStorage,
@@ -8,7 +18,12 @@ import {
 } from "./store/asyncThunks/localStorageThunk";
 
 import Nav from "./components/Nav/Nav";
-import { Outlet, Routes, Route, Navigate } from "react-router-dom";
+import ModalNote from "./components/modals/ModalNote";
+import ModalNoteUpdate from "./components/modals/ModalNoteUpdate";
+import ModalNoteDelete from "./components/modals/ModalNoteDelete";
+import ModalTag from "./components/modals/ModalTag";
+import ModalTagUpdate from "./components/modals/ModalTagUpdate";
+import ModalSort from "./components/modals/ModalSort";
 
 import NotePage from "./pages/NotePage/index";
 import ArchivePage from "./pages/ArchivePage/index";
@@ -27,6 +42,14 @@ const Layout = () => {
 export default function App() {
   const dispatch = useAppDispatch();
   const status = useAppSelector((state) => state.main.status);
+  const {
+    isNoteOpen,
+    isNoteUpdateOpen,
+    isNoteDeleteOpen,
+    isTagOpen,
+    isTagUpdateOpen,
+    isSortOpen,
+  } = useAppSelector((state) => state.modal);
 
   useEffect(() => {
     dispatch(loadNotesFromLocalStorage());
@@ -50,6 +73,18 @@ export default function App() {
         </Route>
         <Route path="*" element={<div>404 Page Not Found</div>} />
       </Routes>
+      {isNoteOpen && <ModalNote onClose={() => dispatch(closeModalNote())} />}
+      {isTagUpdateOpen && (
+        <ModalTagUpdate onClose={() => dispatch(closeModalTagUpdate())} />
+      )}
+      {isSortOpen && <ModalSort onClose={() => dispatch(closeModalSort())} />}
+      {isTagOpen && <ModalTag onClose={() => dispatch(closeModalTag())} />}
+      {isNoteUpdateOpen && (
+        <ModalNoteUpdate onClose={() => dispatch(closeModalNoteUpdate())} />
+      )}
+      {isNoteDeleteOpen && (
+        <ModalNoteDelete onClose={() => dispatch(closeModalNoteDelete())} />
+      )}
     </div>
   );
 }

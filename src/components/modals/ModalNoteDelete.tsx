@@ -3,7 +3,7 @@ import style from "./ModalSort.module.css";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { deleteNoteToLocalStorage } from "../../store/asyncThunks/noteThunk";
-import { closeModalDeletePermanently } from "../../store/slices/modalSlice";
+import { closeModalNoteDelete } from "../../store/slices/modalSlice";
 import { noteIdUpdate } from "../../store/slices/noteUpdateSlice";
 
 import type { IModalProps, INote } from "../../interfaces/types";
@@ -36,7 +36,7 @@ export default function ModalNoteDelete({ onClose }: IModalProps) {
 
     if (status === "succeeded") {
       dispatch(noteIdUpdate("")); // 종료 시 noteId 초기화
-      dispatch(closeModalDeletePermanently());
+      dispatch(closeModalNoteDelete());
     }
   };
 

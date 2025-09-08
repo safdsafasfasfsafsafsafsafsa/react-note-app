@@ -4,11 +4,9 @@ import "react-quill-new/dist/quill.snow.css";
 import style from "./ModalNote.module.css";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import ModalTag from "./ModalTag";
 
 import {
   openModalTag,
-  closeModalTag,
   closeModalNoteUpdate,
 } from "../../store/slices/modalSlice";
 import { noteIdUpdate } from "../../store/slices/noteUpdateSlice";
@@ -167,7 +165,7 @@ export default function ModalNoteUpdate({ onClose }: IModalProps) {
           </div>
         </div>
       </div>
-      {isTagOpen && <ModalTag onClose={() => dispatch(closeModalTag())} />}
+      {/* {isTagOpen && <ModalTag onClose={() => dispatch(closeModalTag())} />} */}
     </>
   );
 }

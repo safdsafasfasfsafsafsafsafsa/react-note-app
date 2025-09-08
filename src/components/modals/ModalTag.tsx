@@ -45,9 +45,9 @@ export default function ModalTag({ onClose }: IModalProps) {
         />
         <div className={style.tags}>
           {/* map으로 tag만 추출 */}
-          {tags.map((tag) => (
+          {tags.map((inTag) => (
             <div className={style.tag}>
-              <p>{tag.tag}</p>
+              <p>{inTag.tag}</p>
               <img src="/img/plus.svg" alt="plus" />
             </div>
           ))}

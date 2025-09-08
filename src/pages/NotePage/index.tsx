@@ -5,18 +5,12 @@ import style from "../../styles/page.module.css";
 import Notes from "../../components/Note/Notes";
 import {
   openModalNote,
-  closeModalNote,
   openModalTagUpdate,
-  closeModalTagUpdate,
   openModalSort,
-  closeModalSort,
 } from "../../store/slices/modalSlice";
 import { setSearchTitle } from "../../store/slices/sortSlice";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import ModalNote from "../../components/modals/ModalNote";
-import ModalTagUpdate from "../../components/modals/ModalTagUpdate";
-import ModalSort from "../../components/modals/ModalSort";
 
 export default function NotePage() {
   const dispatch = useAppDispatch();
@@ -94,11 +88,6 @@ export default function NotePage() {
           <Notes text={`All Notes (${noteCount})`} isPinnedCheck={false} />
         </div>
       </div>
-      {isNoteOpen && <ModalNote onClose={() => dispatch(closeModalNote())} />}
-      {isTagUpdateOpen && (
-        <ModalTagUpdate onClose={() => dispatch(closeModalTagUpdate())} />
-      )}
-      {isSortOpen && <ModalSort onClose={() => dispatch(closeModalSort())} />}
     </>
   );
 }

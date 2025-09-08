@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import style from "./Note.module.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import {
@@ -11,9 +11,7 @@ import {
 } from "../../store/asyncThunks/noteThunk";
 import {
   openModalNoteUpdate,
-  closeModalNoteUpdate,
-  openModalDeletePermanently,
-  closeModalDeletePermanently,
+  openModalNoteDelete,
 } from "../../store/slices/modalSlice";
 import { noteIdUpdate } from "../../store/slices/noteUpdateSlice";
 
@@ -21,8 +19,6 @@ import type { INote, INoteProps } from "../../interfaces/types";
 
 import dateFormat from "../../utils/dateFormat";
 import { truncateText } from "../../utils/truncateText";
-import ModalNoteUpdate from "../modals/ModalNoteUpdate";
-import ModalNoteDelete from "../modals/ModalNoteDelete";
 
 export default function Note({ note }: INoteProps) {
   // const navigate = useNavigate();
@@ -33,7 +29,7 @@ export default function Note({ note }: INoteProps) {
 
   const dispatch = useAppDispatch();
 
-  const { isNoteUpdateOpen, isDeletePermanentlyOpen } = useAppSelector(
+  const { isNoteUpdateOpen, isNoteDeleteOpen } = useAppSelector(
     (state) => state.modal
   );
 
@@ -46,9 +42,9 @@ export default function Note({ note }: INoteProps) {
   };
 
   const handleModalNoteDelete = () => {
-    if (!isDeletePermanentlyOpen) {
+    if (!isNoteDeleteOpen) {
       dispatch(noteIdUpdate(note.id));
-      dispatch(openModalDeletePermanently());
+      dispatch(openModalNoteDelete());
     }
   };
 
@@ -122,7 +118,7 @@ export default function Note({ note }: INoteProps) {
                   <img
                     onClick={handleModalNoteDelete}
                     src="/img/trash-can.svg"
-                    alt="deletePermanently"
+                    alt="NoteDelete"
                   />
                 </div>
               </>
@@ -148,14 +144,6 @@ export default function Note({ note }: INoteProps) {
           </div>
         </div>
       </div>
-      {isNoteUpdateOpen && (
-        <ModalNoteUpdate onClose={() => dispatch(closeModalNoteUpdate())} />
-      )}
-      {isDeletePermanentlyOpen && (
-        <ModalNoteDelete
-          onClose={() => dispatch(closeModalDeletePermanently())}
-        />
-      )}
     </>
   );
 }

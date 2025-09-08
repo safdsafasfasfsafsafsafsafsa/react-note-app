@@ -4,13 +4,8 @@ import "react-quill-new/dist/quill.snow.css";
 import style from "./ModalNote.module.css";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
-import ModalTag from "./ModalTag";
 
-import {
-  openModalTag,
-  closeModalTag,
-  closeModalNote,
-} from "../../store/slices/modalSlice";
+import { openModalTag, closeModalNote } from "../../store/slices/modalSlice";
 import { addNoteToLocalStorage } from "../../store/asyncThunks/noteThunk";
 
 import type { IModalProps, INewNote } from "../../interfaces/types";
@@ -144,7 +139,6 @@ export default function ModalNote({ onClose }: IModalProps) {
           </div>
         </div>
       </div>
-      {isTagOpen && <ModalTag onClose={() => dispatch(closeModalTag())} />}
     </>
   );
 }
