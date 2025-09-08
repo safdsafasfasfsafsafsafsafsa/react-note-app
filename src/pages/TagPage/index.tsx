@@ -24,7 +24,7 @@ export default function TagPage() {
       <div className={style.page}>
         <div className={style.wrapper}>
           <div className={style.header}>
-            <h2>Tag:</h2>
+            <h2>Tag: {name}</h2>
           </div>
           {/* 특정 태그 map */}
           <NotesCleanTags tag={tagName} />

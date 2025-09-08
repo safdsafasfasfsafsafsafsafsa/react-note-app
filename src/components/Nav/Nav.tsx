@@ -26,10 +26,13 @@ export default function Nav() {
           Keep
         </h2>
         <NavBtn src={"/img/light-bulb.svg"} text={"Notes"} nav={""} />
-        {/* tag는 따로 map으로 불어날 예정 */}
-        {/* <NavBtn src={"/img/tag.svg"} text={"Coding"} />
-        <NavBtn src={"/img/tag.svg"} text={"Coding"} />
-        <NavBtn src={"/img/tag.svg"} text={"Coding"} /> */}
+        {tags.map((inTag) => (
+          <NavBtn
+            src={"/img/tag.svg"}
+            text={inTag.tag}
+            nav={`tag/${inTag.tag}`}
+          />
+        ))}
         <NavBtn src={"/img/box.svg"} text={"Archive"} nav={"archive"} />
         <NavBtn src={"/img/trash-can.svg"} text={"Trash"} nav={"trash"} />
       </nav>

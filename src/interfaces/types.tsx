@@ -22,7 +22,7 @@ export interface INewNote {
   newContent: string;
   newColor: string;
   newPriority: string;
-  // newTag: string;
+  newTag: string;
 }
 
 export interface INotesProps {

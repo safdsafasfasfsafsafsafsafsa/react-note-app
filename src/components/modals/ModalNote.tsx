@@ -21,6 +21,7 @@ export default function ModalNote({ onClose }: IModalProps) {
   // 보낼 내용, 전달 성공하면 초기화하기
   const [titleValue, setTitleValue] = useState<string>("");
   const [editerValue, setEditerValue] = useState<string>("");
+  const [selectedTag, setSelectedTag] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("white");
   const [selectedPriority, setSelectedPriority] = useState<string>("low");
 
@@ -62,16 +63,23 @@ export default function ModalNote({ onClose }: IModalProps) {
     newContent,
     newColor,
     newPriority,
-  }: // newTag,
-  INewNote) => {
+    newTag,
+  }: INewNote) => {
     dispatch(
-      addNoteToLocalStorage({ newTitle, newContent, newColor, newPriority })
+      addNoteToLocalStorage({
+        newTitle,
+        newContent,
+        newColor,
+        newPriority,
+        newTag,
+      })
     );
 
     // 성공 시 초기화
     if (status === "succeeded") {
       setTitleValue("");
       setEditerValue("");
+      setSelectedTag("");
       setSelectedColor("white");
       setSelectedPriority("low");
       dispatch(closeModalNote());
@@ -131,6 +139,7 @@ export default function ModalNote({ onClose }: IModalProps) {
                   newContent: editerValue,
                   newColor: selectedColor,
                   newPriority: selectedPriority,
+                  newTag: selectedTag,
                 })
               }
             >

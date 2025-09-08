@@ -36,11 +36,11 @@ export default function ModalTag({ onClose }: IModalProps) {
       <div className={style.wrapper} onClick={handleContentClick}>
         <p>태그 추가하기</p>
         <input
-          className={style.newTag}
+          className={style.addTag}
           placeholder="새 태그 추가"
           type="text"
-          id="newTag"
-          name="newTag"
+          id="addTag"
+          name="addTag"
           onKeyDown={handleEnterAddTag}
         />
         <div className={style.tags}>

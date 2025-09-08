@@ -25,7 +25,7 @@ export const addNoteToLocalStorage = createAsyncThunk<INote, INewNote>(
         content: item.newContent,
         color: item.newColor,
         priority: item.newPriority,
-        // tag: newTag,
+        tag: item.newTag,
       });
       // console.log("newNote", newNote);
 
