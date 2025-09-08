@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./ModalTag.module.css";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
@@ -9,6 +9,8 @@ export default function ModalTag({ onClose }: IModalProps) {
   const dispatch = useAppDispatch();
 
   const { insertTags } = useAppSelector((state) => state.main);
+
+  const [selectedTag, setSelectedTag] = useState<string[]>([]);
 
   const handleOverlayClick = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
@@ -31,6 +33,17 @@ export default function ModalTag({ onClose }: IModalProps) {
     }
   };
 
+  const handleTagToggle = (tag: string) => {
+    // 이미 존재하는 태그인지 확인
+    if (selectedTag.includes(tag)) {
+      // 이미 있으면 제거
+      setSelectedTag(selectedTag.filter((t) => t !== tag));
+    } else {
+      // 없으면 추가
+      setSelectedTag([...selectedTag, tag]);
+    }
+  };
+
   return (
     <div className={style.modal} onClick={handleOverlayClick}>
       <div className={style.wrapper} onClick={handleContentClick}>
@@ -48,7 +61,7 @@ export default function ModalTag({ onClose }: IModalProps) {
           {insertTags.map((inTag) => (
             <div className={style.tag}>
               <p>{inTag.tag}</p>
-              <img src="/img/plus.svg" alt="plus" />
+              <img src="/img/plus.svg" alt="plus" onClick={handleTagToggle} />
             </div>
           ))}
         </div>

@@ -12,7 +12,7 @@ export const addTagToLocalStorage = createAsyncThunk<ITags, ITags>(
   "notes/addTagToLocalStorage",
   async (item, thunkAPI) => {
     try {
-      const storedTags = localStorage.getItem("tags");
+      const storedTags = localStorage.getItem("insertTags");
       const tags: ITags[] = storedTags ? JSON.parse(storedTags) : [];
 
       const newTag: ITags = {
@@ -21,7 +21,7 @@ export const addTagToLocalStorage = createAsyncThunk<ITags, ITags>(
 
       const updateTags = [...tags, newTag];
 
-      localStorage.setItem("tags", JSON.stringify(updateTags));
+      localStorage.setItem("insertTags", JSON.stringify(updateTags));
 
       return newTag;
     } catch (error) {
@@ -45,7 +45,7 @@ export const deleteTagToLocalStorage = createAsyncThunk<ITags, ITags>(
 
       const updateTags = tags.filter((tag) => tag.tag !== item.tag);
 
-      localStorage.setItem("tags", JSON.stringify(updateTags));
+      localStorage.setItem("insertTags", JSON.stringify(updateTags));
 
       return item;
     } catch (error) {

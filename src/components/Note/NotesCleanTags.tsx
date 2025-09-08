@@ -10,7 +10,7 @@ export default function NotesCleanTags({ tag }: ITags) {
 
   const sortedNotes = [...prodNotes]; // 복사본 생성
 
-  const tagNotes = sortedNotes.filter((note) => note.tag == tag);
+  const tagNotes = sortedNotes.filter((note) => note.tag.tag == tag);
 
   return (
     <div className={style.notes}>
