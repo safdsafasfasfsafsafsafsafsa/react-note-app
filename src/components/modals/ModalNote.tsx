@@ -13,7 +13,7 @@ import type { IModalProps, INewNote } from "../../interfaces/types";
 export default function ModalNote({ onClose }: IModalProps) {
   const dispatch = useAppDispatch();
 
-  const { notes, prodNotes, tags, status } = useAppSelector(
+  const { notes, prodNotes, insertTags, status } = useAppSelector(
     (state) => state.main
   );
   const { isTagOpen } = useAppSelector((state) => state.modal);

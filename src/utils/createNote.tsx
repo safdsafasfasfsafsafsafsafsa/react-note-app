@@ -11,7 +11,7 @@ export default function createNote(noteData: Partial<INote>) {
     color: "white",
     priority: "low",
     isPinned: false,
-    tag: "",
+    tag: [],
     createDate: new Date().toISOString(),
     updateDate: new Date().toISOString(),
     isTrash: false,

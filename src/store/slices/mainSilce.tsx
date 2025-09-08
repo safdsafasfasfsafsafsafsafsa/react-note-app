@@ -22,14 +22,14 @@ import type { INote, ITags } from "../../interfaces/types";
 interface INoteState {
   notes: INote[];
   prodNotes: INote[];
-  tags: ITags[];
+  insertTags: ITags[];
   status: "idle" | "loading" | "succeeded" | "failed";
 }
 
 const initialState: INoteState = {
   notes: [],
   prodNotes: [],
-  tags: [],
+  insertTags: [],
   status: "idle",
 };
 
@@ -92,7 +92,7 @@ const mainSlice = createSlice({
         loadTagsFromLocalStorage.fulfilled,
         (state, action: PayloadAction<ITags[]>) => {
           state.status = "succeeded";
-          state.tags = action.payload;
+          state.insertTags = action.payload;
         }
       )
       .addCase(loadTagsFromLocalStorage.rejected, (state) => {
@@ -123,7 +123,7 @@ const mainSlice = createSlice({
         addTagToLocalStorage.fulfilled,
         (state, action: PayloadAction<ITags>) => {
           state.status = "succeeded";
-          state.tags = [...state.tags, action.payload];
+          state.insertTags = [...state.insertTags, action.payload];
         }
       )
       .addCase(addTagToLocalStorage.rejected, (state) => {
@@ -256,7 +256,9 @@ const mainSlice = createSlice({
           state.status = "succeeded";
           const deletedTag = action.payload;
 
-          state.tags = state.tags.filter((note) => note.tag !== deletedTag.tag);
+          state.insertTags = state.insertTags.filter(
+            (note) => note.tag !== deletedTag.tag
+          );
         }
       )
       .addCase(deleteTagToLocalStorage.rejected, (state) => {

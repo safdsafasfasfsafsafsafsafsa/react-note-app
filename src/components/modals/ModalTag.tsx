@@ -8,7 +8,7 @@ import type { IModalProps, ITags } from "../../interfaces/types";
 export default function ModalTag({ onClose }: IModalProps) {
   const dispatch = useAppDispatch();
 
-  const { tags } = useAppSelector((state) => state.main);
+  const { insertTags } = useAppSelector((state) => state.main);
 
   const handleOverlayClick = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
@@ -45,7 +45,7 @@ export default function ModalTag({ onClose }: IModalProps) {
         />
         <div className={style.tags}>
           {/* map으로 tag만 추출 */}
-          {tags.map((inTag) => (
+          {insertTags.map((inTag) => (
             <div className={style.tag}>
               <p>{inTag.tag}</p>
               <img src="/img/plus.svg" alt="plus" />

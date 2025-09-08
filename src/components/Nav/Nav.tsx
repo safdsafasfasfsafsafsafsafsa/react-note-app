@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 export default function Nav() {
   const dispatch = useAppDispatch();
 
-  const { notes, prodNotes, tags, status } = useAppSelector(
+  const { notes, prodNotes, insertTags, status } = useAppSelector(
     (state) => state.main
   );
 
@@ -15,7 +15,7 @@ export default function Nav() {
   const handleMainSlice = () => {
     console.log("notes:", notes);
     console.log("prodNotes:", prodNotes);
-    console.log("tags:", tags);
+    console.log("insertTags:", insertTags);
     console.log("status:", status);
   };
 
@@ -26,7 +26,7 @@ export default function Nav() {
           Keep
         </h2>
         <NavBtn src={"/img/light-bulb.svg"} text={"Notes"} nav={""} />
-        {tags.map((inTag) => (
+        {insertTags.map((inTag) => (
           <NavBtn
             src={"/img/tag.svg"}
             text={inTag.tag}

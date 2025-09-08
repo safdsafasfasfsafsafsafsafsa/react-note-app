@@ -25,7 +25,7 @@ export const loadProdNotesFromLocalStorage = createAsyncThunk<INote[], void>(
 export const loadTagsFromLocalStorage = createAsyncThunk<ITags[], void>(
   "notes/loadTagsFromLocalStorage",
   async () => {
-    const savedTags = localStorage.getItem("tags");
+    const savedTags = localStorage.getItem("insertTags");
     return savedTags ? JSON.parse(savedTags) : [];
   }
 );

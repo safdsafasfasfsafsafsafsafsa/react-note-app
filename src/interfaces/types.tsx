@@ -6,7 +6,7 @@ export interface INote {
   color: string;
   priority: string;
   isPinned: boolean;
-  tag: string;
+  tag: ITags[];
   createDate: string;
   updateDate: string;
   isTrash: boolean;
@@ -22,7 +22,7 @@ export interface INewNote {
   newContent: string;
   newColor: string;
   newPriority: string;
-  newTag: string;
+  newTag: string[];
 }
 
 export interface INotesProps {

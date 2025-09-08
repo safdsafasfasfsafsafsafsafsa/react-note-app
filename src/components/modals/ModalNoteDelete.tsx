@@ -11,7 +11,7 @@ import type { IModalProps, INote } from "../../interfaces/types";
 export default function ModalNoteDelete({ onClose }: IModalProps) {
   const dispatch = useAppDispatch();
 
-  const { id, notes, prodNotes, tags, status } = useAppSelector(
+  const { id, notes, prodNotes, insertTags, status } = useAppSelector(
     (state) => state.main
   );
   const { noteId } = useAppSelector((state) => state.noteUpdate);
